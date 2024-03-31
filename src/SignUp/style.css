@@ -1,73 +1,68 @@
 .signup-segment {
   background: linear-gradient(to right, rgb(8, 11, 14), rgb(25, 38, 52));
   background-size: cover;
-  display: flex;
-  flex-direction: column;
-  width: 100vw;
-  height: 100vh;
-}
-
-.content-signup {
-  width: 100%;
-  height: 100%;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
+  width: 100vw;
+  height: 100vh;
+}
 
+.content-signup {
+  width: 25%;
+  height: 58%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  background-color: white;
+  border-radius: 10px;
+
+  padding: 10px 10px;
   margin-bottom: 150px;
 }
 
 .content-signup form {
-  width: 23%;
-  height: 72%;
+  width: 100%;
+  height: 90%;
 
   display: flex;
+  align-items: center;
   flex-direction: column;
-  border-radius: 10px;
 
-  background-color: white;
+  background-color: #fff;
 
-  padding: 10px 22px;
 }
 
 .content-signup h1 {
   font-size: 28px;
-  font-family: Rubik, sans-serif;
-  font-weight: 500;
+  font-family: Nunito, sans-serif;
+  font-weight: 800;
   color: #1f1db6;
 
   text-align: center;
 
   padding: 20px;
+  margin-bottom: 10px;
 }
 
-.content-signup label {
-  font-family: Rubik, sans-serif;
-  font-size: 15px;
 
-  color: #484848;
-}
-
-.content-signup input {
-  height: 43px;
-
-  border-radius: 5px;
-  border: 1px solid lightgray;
-
-  padding: 10px;
-}
-
-.content-signup input:focus {
-  outline: none;
-}
 
 .signup-button {
+  width: 250px;
   height: 48px;
 
   color: white;
   background-color: #201dd9;
+
+  font-size: 18px;
+  font-family: Nunito, sans-serif;
+  font-weight: 600;
+  color: white;
 
   border-radius: 5px;
   border: none;
@@ -77,6 +72,10 @@
   margin-bottom: 5px;
 }
 
+.signup-button:hover {
+  scale: 1.05;
+}
+
 .content-signup a {
   text-decoration: none;
   color: #3b1dd3;
@@ -84,6 +83,138 @@
   font-size: 12px;
   margin-top: 5px;
 }
+
+.mensagem-error-cadastrar {
+  color: #DA0175;
+  font-family: Montserrat, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 130%;
+}
+
+
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+
+
+.input-container {
+  width: 95%;
+
+  position: relative;
+  margin: 20px;
+
+}
+
+/* Input field */
+.input-field {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  border-bottom: 2px solid #ccc;
+  outline: none;
+  background-color: transparent;
+}
+
+/* Input label */
+.input-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  font-size: 16px;
+  color: rgba(204, 204, 204, 0);
+  pointer-events: none;
+  transition: all 0.3s ease;
+}
+
+/* Input highlight */
+.input-highlight {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #007bff;
+  transition: all 0.3s ease;
+}
+
+/* Input field:focus styles */
+.input-field:focus+.input-label {
+  top: -20px;
+  font-size: 12px;
+  color: #007bff;
+}
+
+.input-field:focus+.input-label+.input-highlight {
+  width: 100%;
+}
+
+
+/*--------------------------------------------------------------------------*/
+/*--------------------------------------------------------------------------*/
+
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.container-radio-label {
+  display: flex;
+  cursor: pointer;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 0.375em;
+}
+
+.container-radio-label-input {
+  position: absolute;
+  left: -9999px;
+}
+
+/* .container-radio-label-input+.container-radio-label-span {
+  color: white;
+} */
+
+.container-radio-label-input:checked+.container-radio-label-span::before {
+  box-shadow: inset 0 0 0 0.4375em #00005c;
+}
+
+
+.container-radio-label-span {
+  display: flex;
+  align-items: center;
+  padding: 0.375em 0.75em 0.375em 0.375em;
+  border-radius: 99em;
+  transition: 0.25s ease;
+  color: #414181;
+}
+
+.container-radio-label-span:hover {
+  background-color: #d6d6e5;
+}
+
+.container-radio-label-span::before {
+  display: flex;
+  flex-shrink: 0;
+  content: "";
+  background-color: #fff;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 50%;
+  margin-right: 0.375em;
+  transition: 0.25s ease;
+  box-shadow: inset 0 0 0 0.125em #00005c;
+}
+
+
+
 
 
 

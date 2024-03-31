@@ -1,0 +1,72 @@
+.nenhum-encontrado-j {
+    height: 100%;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    background-color: white;
+}
+
+.nenhum-encontrado-j img {
+    height: 70%;
+}
+
+.nenhum-encontrado-j strong {
+    color: #f08889;
+    font-size: 25px;
+}
+
+.nenhum-encontrado-j span {
+    color: #9b9bb2;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nao-encontrado-texto-j {
+    height: 18%;
+
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+
+.nenhum-encontrado-j-cobranca {
+    height: 64vh !important;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+
+    background-color: white;
+}
+
+.nenhum-encontrado-j-cobranca img {
+    height: 70%;
+}
+
+.nenhum-encontrado-j-cobranca strong {
+    color: #f08889;
+    font-size: 25px;
+}
+
+.nenhum-encontrado-j-cobranca span {
+    color: #9b9bb2;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nenhum-encontrado-j-cobranca {
+    height: 18%;
+
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}

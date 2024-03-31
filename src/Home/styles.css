@@ -1,24 +1,358 @@
-.home-app {
+.app-home {
     width: 100vw;
     height: 100vh;
 
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: column;
 
+    background-color: #fff;
 }
 
-.h1 {
-    font-size: 60px;
-    font-weight: 400;
-    font-family: 'Courier New', Courier, monospace;
-    color: rgb(8, 8, 136);
+header {
+    width: 100%;
+    height: 8%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 50px;
+
+    background-color: rgb(7, 7, 55);
+    background-color: black;
+    background: linear-gradient(to right, rgb(8, 11, 14), rgb(25, 38, 52));
 }
 
-.link {
-    font-size: 20px !important;
-    font-weight: 500 !important;
-    font-family: 'Courier New', Courier, monospace !important;
-    color: rgb(226, 18, 181) !important;
+.detalhes-paciente-sidebar {
+    width: 100%;
+    height: 92%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.home-header-title {
+    width: 70%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+
+    padding-left: 10px;
+}
+
+.home-header-title h1 {
+    font-size: 30px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.home-header-perfil {
+    width: 30%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+
+    position: relative;
+
+    gap: 20px;
+
+}
+
+.home-header-perfil h1 {
+    font-size: 26px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+    color: #fff;
+}
+
+.home-header-perfil button {
+    width: 24px;
+    height: 24px;
+
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+
+    background-color: #ffffff00;
+
+    border: none;
+}
+
+.EditarSair {
+    width: 90px;
+    height: 40px;
+
+    margin-top: 8vh;
+
+    position: absolute;
+    z-index: 1;
+
+    border-radius: 5px;
+
+}
+
+main {
+    width: 100%;
+    height: 85%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+
+    padding: 0 50px;
+
+    gap: 20px;
+
+    background-color: #fff;
+}
+
+.nav-main {
+    width: 100%;
+    height: 8%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    border-radius: 10px;
+    box-shadow: 2px 4px 4px 2px black;
+
+    padding: 0 20px;
+
+
+}
+
+.nav-title {
+    width: 40%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+}
+
+.nav-title {
+    font-size: 26px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+    color: black;
+}
+
+.nav-add-paciente {
+    width: 60%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+
+}
+
+.button-add-paciente {
+    width: 200px;
+    height: 40px;
+
+    border: none;
+    border-radius: 8px;
+
+    background-color: #da0175;
+
+
+    font-size: 18px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+    color: #fff;
+}
+
+.button-add-filter {
+    width: 40px;
+    height: 40px;
+
+    border: none;
+    border-radius: 8px;
+
+}
+
+.nav-paciente-input {
+    width: 300px;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+
+}
+
+.nav-add-paciente input {
+    width: 100%;
+    height: 35px;
+
+    border: 1px solid gray;
+    border-radius: 10px;
+
+    padding-left: 5px;
+}
+
+
+
+.nav-add-paciente input:focus {
+    border: 1px solid;
+    border-color: #da0175 !important;
+    outline: none;
+}
+
+.section-main {
+    width: 100%;
+    height: 90%;
+
+    padding: 0 20px;
+
+    background-color: greenyellow;
+}
+
+.cabecalho-tabela {
+    width: 100%;
+    height: 7%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 10px;
+
+    background-color: aliceblue;
+}
+
+.cabecalho-tabela div {
+    width: 20%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    background-color: aqua;
+
+    gap: 2px;
+}
+
+.tabela {
+    width: 100%;
+    height: 90%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    padding: 10px 0;
+
+    background-color: olive;
+
+    gap: 5px;
+}
+
+.tabela ul {
+    width: 100%;
+    height: 30px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    gap: 10px;
+
+    background-color: rgb(226, 236, 236);
+}
+
+.tabela ul li {
+    width: 20%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 18px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+    color: black;
+
+    padding: 0 20px;
+}
+
+.li-nome-paciente {
+    width: 20%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 18px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+    color: black;
+    text-transform: capitalize;
+
+    padding: 0 20px;
+}
+
+.li-detalhar-paciente {
+    width: 20%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+
+    font-size: 18px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+    color: black;
+
+    padding: 0 20px;
+}
+
+.li-detalhar-paciente:hover {
+    scale: 1.01;
+    text-decoration: underline;
+    color: rgb(7, 7, 55);
+}
+
+.li-button-opcoes {
+    width: 20%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+
+    padding: 0 20px;
+
+
+
+}
+
+.button-opcoes {
+    width: 15%;
+    height: 85%;
+
+    border: none;
+    border-radius: 5px;
+
 }

@@ -1,0 +1,107 @@
+.modal-deletaCobranca-j {
+    position: relative;
+    z-index: 1 !important;
+}
+
+.modal-j button {
+    border: none;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.Box-deletarCobranca-j {
+    width: 550px;
+    height: 320px;
+
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-50%, -50%) !important;
+
+    border: none !important;
+    border-radius: 10px !important;
+    box-shadow: 24 !important;
+
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+
+}
+
+
+
+.container-deletar-cobranca-j {
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 18px;
+
+}
+
+.deletar-buttonSair-img {
+    width: 100%;
+    height: 250px;
+
+    display: flex;
+}
+
+.deletarCobranca-img {
+    width: 88%;
+    height: 200px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    margin-top: 32px;
+    margin-left: 32px;
+
+}
+
+.container-deletar-cobranca-j img {
+    height: 160px;
+    width: 160px;
+}
+
+.container-deletar-cobranca-j strong {
+    color: #cc7800;
+    font-size: 18px;
+    padding: 10px;
+}
+
+.container-deletar-cobranca-j-button {
+    width: 32px !important;
+    height: 32px !important;
+
+    border: none;
+    margin-right: 20px;
+}
+
+.linha-botao-deletar-j {
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.linha-botao-deletar-j button {
+    background-color: #acd9c5;
+    color: #034a2a;
+    font-size: 19px;
+
+    width: 100px;
+    height: 24px;
+
+    border-radius: 4px;
+    border: none;
+}
+
+#botao-nao-j {
+    background-color: #f2d6d0;
+    color: #ae1100;
+}

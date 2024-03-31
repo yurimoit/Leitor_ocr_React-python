@@ -1,12 +1,18 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import { useNavigate } from "react-router-dom";
+import api from '../services/api';
+import toast from "react-hot-toast";
+import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
+import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 
-function Login({ setConta }) {
+function Login({ setVerificacao }) {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const navigate = useNavigate();
   const navigate2 = useNavigate();
+  const [messagemError, setMessagemError] = useState('');
+  const [statusVisibilidadeR, setStatusVisibilidadeR] = useState(false);
 
 
   useEffect(() => {
@@ -20,9 +26,34 @@ function Login({ setConta }) {
   async function handleSubmit(e) {
     e.preventDefault();
 
-    setEmail('');
-    setSenha('')
-    navigate2('/home');
+    if (!senha || !email) {
+      return setMessagemError('Preencha os campos acima!!');
+    }
+    if (!email.includes('@') || !email.includes('.com')) {
+      return setMessagemError('Preencha o campo de e-mail corretamente!');
+    }
+
+    try {
+      const response = await api.post('/login/usuario', {
+        email, senha
+      })
+
+      if (response.data) {
+        console.log(response.data)
+        localStorage.setItem('token', response.data.token)
+        setVerificacao(true)
+      }
+
+      setEmail('');
+      setSenha('')
+      navigate2('/home');
+
+      toast.success("Acesso permitido com sucesso!");
+    } catch (error) {
+      console.log(error)
+      toast.error(error.response.data.mensagem)
+    }
+
 
   }
 
@@ -49,26 +80,35 @@ function Login({ setConta }) {
         <div className="form-login">
           <h1>Login</h1>
           <form onSubmit={handleSubmit}>
-            <label >Email</label>
-            <br></br>
-            <input
-              type="text"
-              placeholder=""
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <br></br>
+            <div className="input-container-login">
+              <input
+                placeholder="E-mail"
+                className="input-field-login"
+                type="text"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              <label for="input-field" className="input-label">E-mail</label>
+              <span className="input-highlight"></span>
+            </div>
 
-            <label >Senha</label>
-            <br></br>
-            <input
-              type="password"
-              name="senha"
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-            />
-            <br></br>
+            <div className="input-container-login">
+              <input
+                placeholder="Senha"
+                className="input-field-login"
+                type={!statusVisibilidadeR ? 'password' : 'text'}
+                name="senha"
+                value={senha}
+                onChange={(e) => setSenha(e.target.value)}
+              />
+              <button className='btn-v' onClick={() => setStatusVisibilidadeR(!statusVisibilidadeR)} type='button'>
+                {!statusVisibilidadeR ? <VisibilityOffOutlinedIcon sx={{ width: '20px', height: '20px', color: '#747488' }} /> : <RemoveRedEyeOutlinedIcon sx={{ width: '20px', height: '20px', color: '#747488' }} />}
+              </button>
+              <label for="input-field" className="input-label">Senha</label>
+              <span className="input-highlight"></span>
+            </div>
+            <span className='mensagem-error'>{messagemError}</span>
             <button className="login-button" type="submit">Entrar</button>
           </form>
         </div>

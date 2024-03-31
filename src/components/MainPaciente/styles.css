@@ -1,0 +1,709 @@
+.app-main-paciente {
+    width: 93%;
+    height: 90%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+    gap: 10px;
+
+    background-color: #fff;
+    padding: 20px 50px;
+}
+
+.informacoes-paciente {
+    width: 100%;
+    height: 25%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+
+    gap: 10px;
+    padding: 25px 15px;
+
+    border: 2px dashed #fff;
+    border-radius: 10px;
+
+    background: linear-gradient(to right, rgb(8, 11, 14), rgb(25, 38, 52));
+}
+
+.informacoes-paciente-nome {
+    width: 100%;
+    height: 35%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.informacoes-paciente-nome h1 {
+    font-family: Nunito, sans-serif;
+    font-size: 32px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.informacoes-paciente-nome h2 {
+    font-family: Nunito, sans-serif;
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.informacoes-paciente-dados {
+    width: 100%;
+    height: 60%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    padding: 10px 0;
+    gap: 10px;
+}
+
+.informacoes-paciente-dados ul {
+    width: 25%;
+    height: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.informacoes-paciente-dados div {
+    width: 25%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.informacoes-paciente-dados div button {
+    width: 150px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+
+    border: none;
+    border-radius: 7px;
+    background-color: #DA0175;
+    box-shadow: 2px 4px 4px 4px black;
+
+    font-family: Nunito, sans-serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: #fff;
+}
+
+.informacoes-paciente-dados div button:hover {
+    scale: 1.05;
+}
+
+.informacoes-paciente-dados ul li {
+    width: 100%;
+    height: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    color: #ffffff;
+    font-size: 18px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+
+    list-style: none;
+}
+
+
+
+.formulario-dados-exame {
+    width: 100%;
+    height: 70%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+
+.cadastra-exama-usuario {
+    width: 100%;
+    height: 85%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.envia-arquivo-exame {
+    width: 25%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    background: lightgray;
+
+
+    padding: 20px 0;
+
+    border: 2px dashed #1475cf;
+    border-right: none;
+    border-bottom: none;
+    border-radius: 7px 0px 0px 0px;
+
+}
+
+.envia-arquivo-exame-div {
+    width: 100%;
+    height: 10%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+}
+
+.paciente-higth-photos-form {
+    width: 100%;
+    height: 60%;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background: #ffffff00
+}
+
+
+
+.envia-arquivo-exame-div button {
+    width: 160px;
+    height: 36px;
+
+    border: none;
+    background-color: rgb(28, 151, 28);
+    box-shadow: 2px 4px 4px 2px black;
+
+    font-family: Nunito, sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    color: #fff;
+    text-transform: uppercase;
+
+    border-radius: 2px;
+}
+
+.envia-arquivo-exame div button:hover {
+    scale: 1.06;
+}
+
+
+
+.text-gerado-arquivo-exame {
+    width: 75%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+
+    border: 2px dashed #fff;
+    border-left: none;
+    border-bottom: none;
+    border-radius: 0 7px 0px 0;
+    padding-top: 10px;
+    background: linear-gradient(to right, rgb(8, 11, 14), rgb(25, 38, 52));
+}
+
+
+.loard-temporizado {
+    width: 75%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+    border: 2px dashed #fff;
+    border-left: none;
+    border-radius: 0 15px 15px 0;
+    background: linear-gradient(to right, rgb(8, 11, 14), rgb(25, 38, 52));
+}
+
+
+
+.form-exame-tiulo {
+    width: 100%;
+    height: 25%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    justify-content: space-between;
+
+    padding: 1px 20px;
+
+}
+
+.form-exame-tiulo aside {
+    width: 60%;
+    height: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+
+
+}
+
+.form-exame-data {
+    width: 40%;
+    height: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+
+}
+
+.form-exame-data label {
+    font-family: Rubik+Lines, sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 800;
+
+}
+
+.form-exame-data input {
+    width: 200px;
+    height: 35px;
+
+    border: 1px solid lightgray;
+    border-radius: 3px;
+
+    font-size: 18px;
+    font-family: sans-serif;
+    color: gray;
+
+    padding-left: 5px;
+}
+
+.form-exame-data input::placeholder {
+    font-size: 16px;
+}
+
+.form-exame-data input:focus {
+    border: 2px solid #1475cf;
+    outline: none;
+}
+
+
+.form-nome-exame {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    gap: 5px;
+
+
+}
+
+.form-nome-exame label {
+    font-family: Rubik+Lines, sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 800;
+
+}
+
+.form-nome-exame-input {
+    width: 65%;
+    height: 40px;
+
+    padding-left: 5px;
+    border: 2px solid #1475cf;
+    border-radius: 2px;
+
+    font-size: 18px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+    color: black;
+}
+
+.form-nome-exame input::placeholder {
+    width: 100%;
+
+    color: gray;
+    font-size: 16px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+
+}
+
+.form-nome-exame input:focus {
+    border: 2px solid #1475cf;
+    outline: none;
+}
+
+
+
+.form-exame-tiulo-nav button {
+    width: 150px;
+    height: 40px;
+
+    border: none;
+    border-radius: 7px;
+    box-shadow: 2px 4px 4px 2px black;
+
+    font-family: Nunito, sans-serif;
+    font-size: 18px;
+    color: #fff;
+    text-transform: uppercase;
+
+    border-radius: 5px;
+}
+
+.form-exame-tiulo-nav button:hover {
+    scale: 1.05;
+}
+
+
+
+
+.form-exame-tiulo h2 {
+    font-family: Nunito, sans-serif;
+    font-size: 24px;
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.form-exame-dados {
+    width: 100%;
+    height: 80%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px 20px;
+}
+
+.form-exame-dados form {
+    width: 100%;
+    height: 100%;
+
+    border-top: 1px solid #fff;
+}
+
+.form-dados {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+
+
+}
+
+.form-dados section {
+    width: 100%;
+    height: 100% !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    overflow-y: scroll;
+
+    background: linear-gradient(to right, rgb(8, 11, 14), rgb(25, 38, 52));
+
+    padding: 10px 10px;
+    border-radius: 5px;
+
+    gap: 10px;
+}
+
+.form-dados section::-webkit-scrollbar {
+    display: none;
+}
+
+.form-dados-input-div {
+    width: 305px;
+    height: 140px;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+
+    padding: 10px;
+    margin-bottom: 20px;
+
+    background-color: #ffffff;
+    box-shadow: 2px 4px 4px 0px black;
+    border-radius: 7px;
+
+    gap: 10px;
+}
+
+.form-dados-input-div:hover {
+    scale: 1.05;
+}
+
+.form-dados-input-div label {
+    height: 25px;
+    font-size: 18px;
+    font-family: Nunito, sans-serif;
+    font-weight: 800;
+    color: black;
+    text-transform: uppercase;
+}
+
+
+
+.div-valor-referencia {
+    width: 100%;
+    height: 35px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 5px;
+}
+
+.div-span-valor-referencia {
+    width: 30% !important;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+}
+
+.div-span-valor-referencia span {
+    color: #DA0175;
+    font-size: 14px;
+    font-family: Nunito, sans-serif;
+    font-weight: 700;
+}
+
+.span-valor-referencia {
+    color: #052747;
+    font-size: 14px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+}
+
+.div-valor-referencia div {
+    width: 70%;
+    height: 25px;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+    gap: 5px;
+}
+
+.div-valor-referencia div input {
+    width: 80px;
+    height: 25px !important;
+
+    display: flex;
+    align-items: center;
+
+    font-size: 14px;
+    color: black;
+    font-family: Nunito, sans-serif;
+
+
+    gap: 2px;
+}
+
+
+
+
+.form-dados-exames-gerado {
+    width: 100%;
+    height: 80% !important;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+
+    flex-wrap: nowrap;
+    gap: 8px;
+    border: none;
+}
+
+.form-obs-exame-gerado {
+    width: 100%;
+    height: 25% !important;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+
+
+    padding: 0px 7px;
+
+    flex-wrap: nowrap;
+    gap: 8px;
+    border: none;
+}
+
+.form-obs-exame-gerado textarea {
+    width: 100%;
+
+    border: 2px solid #1475cf;
+    border-radius: 3px;
+    padding: 0px 5px;
+}
+
+.form-obs-exame-gerado textarea::placeholder {
+    color: gray;
+    font-size: 16px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+}
+
+.form-obs-exame-gerado textarea:focus {
+    border: 2px solid #DA0175;
+    outline: none;
+}
+
+.form-obs-exame-gerado label {
+    font-family: Rubik+Lines, sans-serif;
+    font-size: 18px;
+    color: #ffffff;
+    font-weight: 800;
+}
+
+.form-dados-exames-gerado div {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    gap: 8px;
+    border: none;
+}
+
+.form-dados-input-div input {
+    width: 80%;
+    height: 35px !important;
+
+    padding-left: 5px;
+    border: 2px solid #1475cf;
+    border-radius: 3px;
+
+    font-size: 18px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+    color: black;
+
+}
+
+.form-dados-input-div input::placeholder {
+    color: gray;
+    font-size: 16px;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+
+}
+
+.form-dados-input-div input:focus {
+    border: 2px solid #DA0175;
+    outline: none;
+}
+
+
+
+.form-file {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 3px dashed rgb(10, 44, 138);
+    height: 300px;
+    width: 80%;
+    cursor: pointer;
+    border-radius: 10px;
+
+    background-color: #e9f0ff;
+}
+
+.input-field-documentos-file {
+    width: 100%;
+    height: 100%;
+}
+
+.uploaded-row {
+    width: 77%;
+
+    margin: 10px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    border-radius: 5px;
+    background: #fff;
+}
+
+.upload-content {
+    display: inline;
+    align-items: center;
+    color: black;
+    gap: 2px;
+
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+
+.form-exame-tiulo-nav {
+    width: 100%;
+    height: 15%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 150px;
+
+    background: linear-gradient(to right, rgb(8, 11, 14), rgb(25, 38, 52));
+
+    border-radius: 0px 0px 25px 25px;
+    border-top: none;
+}
