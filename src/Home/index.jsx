@@ -1,5 +1,5 @@
 import './styles.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import EditProfile from '../components/editP';
 import TuneIcon from '@mui/icons-material/Tune';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,6 +13,8 @@ import SideBar from '../components/SideBar';
 import { useNavigate } from 'react-router-dom';
 import ListaExames from '../components/ListaExames';
 import ChartComponent from '../components/grafico';
+import api from '../services/api';
+import DashBoard from '../components/DashBoard';
 
 
 export default function AppHome() {
@@ -24,6 +26,7 @@ export default function AppHome() {
     const [isPageHome, setIsPageHome] = useState(false)
     const [isPageExames, setIsPageExames] = useState(false)
     const [isPageDashBoard, setIsPageDashBoard] = useState(false)
+
     const [usuario, setUsuario] = useState({
         0: 0,
         1: "",
@@ -33,6 +36,9 @@ export default function AppHome() {
         6: ""
     })
     const navigate = useNavigate()
+
+
+
 
 
     const arrayTeste = [
@@ -55,6 +61,9 @@ export default function AppHome() {
             status: 'Concluido',
         }
     ]
+
+
+
 
 
     function openModalDetalhar() {
@@ -100,7 +109,9 @@ export default function AppHome() {
                         setUsuario={setUsuario}
                         modalIsOpen={modalIsOpen}
                     />)}
-                    {isPageDashBoard && (<ChartComponent />)}
+                    {isPageDashBoard && (
+                        <DashBoard />
+                    )}
                 </div>
             ) : (
                 <main>

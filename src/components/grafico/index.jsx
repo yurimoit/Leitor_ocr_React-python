@@ -12,7 +12,6 @@ const options = {
         y: {
             type: 'linear',
             beginAtZero: true,
-            max: 8,
             stepSize: 1,
         },
     },
@@ -20,11 +19,27 @@ const options = {
 }
 
 
-function ChartComponent({ }) {
-    const [datas, setDatas] = useState([]);
-    const [valoresET, setValoresET] = useState([]);
+function ChartComponent({ dataDados, line, name }) {
+    const [dados, setDados] = useState(
+        {
+            lista_dados: [41.4, 40.2],
+            lista_dados_inferior: [46.0, 46.0],
+            lista_dados_superior: [36.0, 35.0],
+            lista_datas: ['1', '2']
+        }
+    );
+    const [nameDado, setNameDado] = useState('');
     const [valoresSD, setValoresSD] = useState([]);
     const [saldo, setSaldo] = useState([]);
+
+    console.log("Dados aqui-----:", dataDados);
+
+    useEffect(() => {
+        if (dataDados) {
+            setDados(dataDados)
+            setNameDado(name)
+        }
+    }, [dataDados, name])
 
 
 
@@ -42,40 +57,24 @@ function ChartComponent({ }) {
 
 
     const data = {
-        labels: ['12/02/2024', '13/02/2024', '14/02/2024'],
+        labels: dados.lista_datas ? dados.lista_datas : ['1', '2'],
         datasets: [
             {
-                label: 'Limite superior',
-                data: [6.0, 6.0, 6.0],
-                fill: false,
-                backgroundColor: `${true ? 'rgba(70, 35, 199,0.4)' : 'rgba(185, 111, 13,0.9)'}`,
-                borderColor: '#FA8C10',
-                borderWidth: 4,
-            },
-            {
-                label: 'Hemacias',
-                data: [4.7, 4.9, 4.5],
+                label: nameDado,
+                data: dados.lista_dados,
                 fill: true,
-                backgroundColor: `${true ? 'rgba(218, 41, 29, 0.4)' : 'rgba(70, 35, 199,0.7)'}`,
-                borderColor: '#6460FB',
+                backgroundColor: `${false ? 'rgba(218, 41, 29, 0.73)' : 'rgba(70, 35, 199,0.7)'}`,
+                borderColor: '#1b9a0a',
                 borderWidth: 4,
             },
-            {
-                label: 'Limite inferior',
-                data: [3.8, 3.8, 3.8],
-                fill: false,
-                backgroundColor: `${true ? 'rgba(38, 212, 15, 0.484)' : 'rgba(75, 192, 192, 0.9)'}`,
-                borderColor: '#05EDE3',
-                borderWidth: 4,
 
-            },
         ],
     };
 
     return (
         <div className="chart-container">
-            <h2>Gráfico de Vendas Mensais</h2>
-            {true ? (<Line data={data} options={options} c />) : (<Bar data={data} options={options} />)}
+            <h2>{nameDado}</h2>
+            {line ? (<Line data={data} options={options} c />) : (<Bar data={data} options={options} />)}
         </div>
     );
 };
