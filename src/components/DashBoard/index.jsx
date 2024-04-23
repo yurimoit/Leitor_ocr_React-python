@@ -345,7 +345,7 @@ export default function DashBoard({ idPaciente }) {
                     // console.log(response.data);
                     setListaResultadosDados(response.data)
                 }
-            } else if (localStorage.getItem('id_paciente')) {
+            } else if (localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')) {
                 const response = await api.get(`/getBanco/exames?id=${localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')}`,
                     {
                         headers: {
