@@ -73,6 +73,7 @@
     gap: 16px;
 
     background-color: rgba(211, 211, 211, 0);
+
 }
 
 
@@ -102,7 +103,7 @@
 
 .formulario-editar-exame-i {
     width: 100%;
-    height: 100% !important;
+    height: 100%;
 
     display: flex;
     align-items: center;
@@ -110,14 +111,13 @@
     flex-direction: column;
     gap: 15px;
 
-    border: 1px solid rgb(203, 228, 236);
     padding-top: 20px;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px !important;
 
     border-radius: 2px;
-    background-color: lightgray;
+    background-color: #fff;
 
     overflow-y: scroll;
 
@@ -137,7 +137,8 @@
     border-radius: 3px;
     gap: 15px;
 
-    border-bottom: 1px solid rgb(5, 25, 66);
+    padding-bottom: 10px;
+    border-bottom: 2px solid black;
 
 }
 
@@ -220,7 +221,7 @@
 
     /* background-color: aqua; */
 
-    border-bottom: 1px solid rgb(5, 25, 66);
+    border-bottom: 2px solid black;
 
 }
 
@@ -288,9 +289,9 @@
 
 .bloco1-valor-editar-exame p,
 .bloco1-referencia-editar-exame p {
-    color: black;
-    font-family: Rubik, sans-serif;
-    font-size: 16px;
+    color: rgb(5, 17, 76);
+    font-family: Nunito, sans-serif;
+    font-size: 1.2rem;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
@@ -308,11 +309,12 @@
 
 .bloco-nome-obs-editar-exame {
     width: 100%;
-    height: 80px !important;
+    height: 250px;
 
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: flex-start;
+    flex-direction: column;
     border-radius: 3px;
     gap: 5px;
 
@@ -325,9 +327,17 @@
 }
 
 .bloco-nome-obs-editar-exame textarea {
-    /* border: 1px solid lightgray; */
-    border: 1px solid gray;
-    border-radius: 5px;
+    width: 100%;
+    height: 250px;
+
+    border: 2px solid rgb(61, 60, 60);
+    border-radius: 3px;
+    padding: 10px 5px;
+
+    color: black;
+    font-size: 1.6rem;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
 }
 
 .bloco-nome-obs-editar-exame textarea:focus {
@@ -390,16 +400,6 @@
 
 
 .alert-CB {
-    /* position: relative;
-    z-index: 1 !important;
-  
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-  
-  
-    padding-right: 103px;
-    margin-bottom: 66px; */
 
     position: absolute;
     height: 55px;
@@ -414,7 +414,7 @@
 
 
 
-.Pendente {
+/* .Pendente {
     color: #c5a605;
 }
 
@@ -425,4 +425,4 @@
 .Vencida {
     color: #971d1d;
 
-}
+} */

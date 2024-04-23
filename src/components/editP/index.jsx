@@ -10,7 +10,7 @@ import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { IMaskInput } from "react-imask";
 
 
-function EditProfile({ modalIsOpen, setIsOpen }) {
+function EditProfile({ modalIsOpen, setIsOpen, usuario }) {
 
   const [statusVisibilidadeR, setStatusVisibilidadeR] = useState(false);
   const [statusVisibilidadeL, setStatusVisibilidadeL] = useState(false);
@@ -32,6 +32,20 @@ function EditProfile({ modalIsOpen, setIsOpen }) {
     senha: "",
     senha_repetida: "",
   });
+
+
+  useEffect(() => {
+    if (Boolean(usuario)) {
+      setForm({
+        nome: usuario[1] ? usuario[1] : "",
+        email: usuario[2] ? usuario[2] : "",
+        cpf: usuario[5] ? usuario[5] : "",
+        telefone: usuario[6] ? usuario[6] : "",
+        senha: "",
+        senha_repetida: "",
+      })
+    }
+  }, [usuario])
 
 
 
@@ -61,7 +75,7 @@ function EditProfile({ modalIsOpen, setIsOpen }) {
 
     if (form.email) {
       if ((!form.email.includes('.')) || (form.email.trim().includes(' ')) || (!form.email.includes('@'))) {
-        console.log('-----------------------------------------------------');
+        // console.log('-----------------------------------------------------');
         return setMessagemErrorEmail("O campo email esta incorreto")
       }
     }
@@ -69,7 +83,7 @@ function EditProfile({ modalIsOpen, setIsOpen }) {
     setMessagemErrorEmail('')
 
     if (form.cpf) {
-      console.log(form.cpf);
+      // console.log(form.cpf);
       if ((form.cpf.replace(/[^0-9]/g, '').trim().length !== 11)) {
         return setMessagemErrorCpf("O campo cpf esta incorreto")
       }
@@ -78,7 +92,7 @@ function EditProfile({ modalIsOpen, setIsOpen }) {
     setMessagemErrorCpf('')
 
     if (form.telefone) {
-      console.log(form.telefone);
+      // console.log(form.telefone);
       if ((form.telefone.replace(/[^0-9]/g, '').trim().length !== 11)) {
         return setMessagemErrorTelefone("O campo telefone esta incorreto")
       }
@@ -116,12 +130,12 @@ function EditProfile({ modalIsOpen, setIsOpen }) {
         nova_senha: form.senha,
       }, {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
         }
       })
 
       if (response.data) {
-        console.log(response.data)
+        // console.log(response.data)
       }
 
       setForm({
@@ -145,7 +159,7 @@ function EditProfile({ modalIsOpen, setIsOpen }) {
       closeModal()
     } catch (error) {
       toast.error("Erro ao fazer o cadastro, tente novamente")
-      console.log(error);
+      // console.log(error);
     }
   }
 

@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import './styles.css';
 import api from '../../services/api';
@@ -10,17 +11,29 @@ import imagemTxT from '../../assets/imagemTXT.png'
 import imagemCSV from '../../assets/imagemCSV.png'
 import imagemXLS from '../../assets/imagemXLS.png'
 import imagemDOCX from '../../assets/imagemDOCX.png'
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
 import { Loaders } from '../Loader';
 import AnimationsPerfil from '../LoadersAnimatons/index2';
+import { useNavigate } from 'react-router-dom';
+import ModalEditarPaciente from '../ModalEditarPaciente';
 
 
 export default function MainPaciente({ setUsuario, modalIsOpen }) {
     const [file, setFile] = useState('');
-    const [imageNome, setImageNome] = useState('');
-    const [nomeTexto, setNomeTexto] = useState('');
+    const [
+        // eslint-disable-next-line
+        imageNome, setImageNome] = useState('');
+    const [
+        // eslint-disable-next-line
+        nomeTexto, setNomeTexto] = useState('');
     const [url, setUrl] = useState('')
-    const [observacaoGerada, setObservacaoGerada] = useState('Sem observações');
+    const [observacaoGerada, setObservacaoGerada] = useState(['Sem observações']);
     const [verificadoTempo, setVerificadorTempo] = useState(false)
+    const [
+        // eslint-disable-next-line
+        isVerificacao, setIsVerificacao] = useState(false)
+    const navgate = useNavigate()
 
     const [image, setImage] = useState(null)
     const [fileName, setFileName] = useState("No selected file")
@@ -28,6 +41,10 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
     const [informacoesGerado, setInformacoeGerado] = useState([])
     const [tempoEnvio, setTempoEnvio] = useState(false)
     const [tempoEnvioArquivo, setTempoEnvioArquivo] = useState(false)
+    const [finalizarEditarPaciente, setFinalizarEditarPaciente] = useState('')
+    const [openModalEditarPT, setOpenModalEditarPT] = useState(false)
+    const [idPaciente, setIdPaciente] = useState(null)
+    const [dadosPaciente, setDadosPaciente] = useState([])
     const [informacaoUsuario, setIformacaoUsuario] = useState({
         0: 0,
         1: "",
@@ -38,6 +55,70 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
     })
     const [dataExame, setDataExame] = useState('')
 
+    function openModalEditarPaciente() {
+        setOpenModalEditarPT(true)
+    }
+
+    function formataData(d) {
+        if (d) {
+            var dataString = d;
+
+            // Converter a string para um objeto Date
+            var data = new Date(dataString);
+
+            // Obter ano, mês e dia
+            var ano = data.getFullYear();
+            var mes = ("0" + (data.getMonth() + 1)).slice(-2); // Adiciona um zero à esquerda, se necessário
+            var dia = ("0" + (data.getDate() + 1)).slice(-2); // Adiciona um zero à esquerda, se necessário
+
+            // Formatar a data no formato ano-mes-dia
+            var dataFormatada = ano + "-" + mes + "-" + dia;
+
+
+            return dataFormatada
+        }
+
+        return "INDIFIDO"
+    }
+
+    function calculaIdade(d = '0000-00-00') {
+
+        if (d === "INDIFIDO") {
+            return "INDIFIDO"
+        }
+
+        let ano = d.slice(0, 4)
+        let mes = d.slice(5, 7)
+        let dia = d.slice(8)
+
+        let dataAtual = new Date()
+        let dataAtualANO = dataAtual.getFullYear()
+        let dataAtualMES = dataAtual.getMonth()
+        let dataAtualDIA = dataAtual.getDate()
+        let idade = null
+
+        let diferencaANO = Number(dataAtualANO) - Number(ano)
+        let diferencaMES = Number(dataAtualMES) - Number(mes)
+        let diferencaDIA = Number(dataAtualDIA) - Number(dia)
+
+
+        if (diferencaMES < 0) {
+            idade = diferencaANO - 1
+        } else if (diferencaMES > 0) {
+            idade = diferencaANO
+        } else if (diferencaMES === 0 && diferencaDIA < 0) {
+            idade = diferencaANO - 1
+        } else if (diferencaMES === 0 && diferencaDIA > 0) {
+            idade = diferencaANO - 1
+        } else if (diferencaMES === 0 && diferencaDIA === 0) {
+            idade = diferencaANO
+        }
+
+        // console.log("ANO-MES-DIA", ano, mes, dia);
+        // console.log("DATA ATUAL", dataAtual);
+        // console.log("IDADE", idade);
+        return idade
+    }
 
 
     const handleInputChange = (event, index) => {
@@ -87,35 +168,103 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
 
     async function obterUsuario() {
         try {
-            const response = await api.get('/obter/usuario', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+            if (!localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) {
+                const response = await api.get('/obter/usuario', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                    }
+                })
+
+                if (response.data) {
+                    // console.log("Dados do get:", response.data);
+                    setIformacaoUsuario(response.data)
+                    setUsuario(response.data)
                 }
-            })
 
-            if (response.data) {
-                console.log("Dados do get:", response.data);
-                setIformacaoUsuario(response.data)
-                setUsuario(response.data)
+                setVerificadorTempo(true)
+            } else {
+                const response = await api.get('/obter/usuario', {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                    }
+                })
+
+                if (response.data) {
+                    // console.log("Dados do get:", response.data);
+                    setUsuario(response.data)
+                }
+
             }
-
-            setVerificadorTempo(true)
         } catch (error) {
             toast.error("Não foi possivel obter usuario")
         }
     }
 
+    async function obterPaciente() {
+        try {
+            if (localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) {
+                const response = await api.get(`/obter/paciente?id=${localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH') ? localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH') : null}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                    }
+                })
+
+                if (response.data) {
+                    // console.log("Dados do get:", response.data);
+                    setIformacaoUsuario(response.data)
+                    setDadosPaciente(response.data[0])
+                    setIdPaciente(localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH'))
+                }
+
+                setVerificadorTempo(true)
+            }
+        } catch (error) {
+            // console.log(error.response.data.validador);
+            if (error && error.response.data.validador === false) {
+                localStorage.removeItem('E%H6%2&6GB8UU!UZ3XncHd')
+                localStorage.removeItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')
+                localStorage.removeItem('SMoYgVd$Q6Qf2#g@fG5XTgH')
+                navgate('/')
+            }
+            toast.error("Não foi possivel obter paciente")
+        }
+    }
+
     useEffect(() => {
-        obterUsuario()
-    }, [modalIsOpen])
 
-    // useEffect(() => {
-    //     setTimeout(() => {
-    //         setVerificadorTempo(true)
-    //     }, 1200)
-    // }, [verificadoTempo])
+        setTimeout(() => {
+            obterPaciente()
+        }, 1000)
+    },
+        // eslint-disable-next-line
+        [openModalEditarPT])
 
 
+    useEffect(() => {
+        if (finalizarEditarPaciente) {
+            setTimeout(() => {
+                setFinalizarEditarPaciente("")
+            }, 2500)
+        }
+    }, [finalizarEditarPaciente])
+
+
+    useEffect(() => {
+        if (!localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) {
+            obterUsuario()
+        }
+    },
+        // eslint-disable-next-line 
+        [modalIsOpen])
+
+    useEffect(() => {
+        if (localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) {
+            setIsVerificacao(true)
+        }
+    }, [])
+
+
+    // console.log('Pacientes gerados: ', informacaoUsuario[0]);
 
     async function handleUploadFormData() {
         if (!file) {
@@ -132,7 +281,7 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                 }
             }, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                    Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
                 }
             });
 
@@ -154,11 +303,11 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
         try {
             const response = await api.get('/getLeitura', {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                    Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
                 }
             });
 
-            console.log(response);
+            // console.log(response);
 
             const { nome_exame, url_exame, lista_dados, observacao
             } = response.data;
@@ -170,7 +319,7 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
             verificaCampo()
         } catch (error) {
             toast.error("Error no servidor!")
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -214,6 +363,7 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
         try {
             const response = await api.post('/dados/exames', {
                 resposta: {
+                    'id_paciente': localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH') ? localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH') : null,
                     'nome_exame': nomeExame,
                     'url_exame': url,
                     'lista_dados': informacoesGerado,
@@ -222,16 +372,16 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                 }
             }, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                    Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
                 }
             })
 
             if (response && response.data) {
-                console.log(response.data);
+                // console.log(response.data);
             }
             setTempoEnvio(true)
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             if (error.response && error.response.data.mensagem) {
                 toast.error(error.response.data.mensagem)
             }
@@ -262,39 +412,75 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
     }, [tempoEnvio, tempoEnvioArquivo, image])
 
 
-    console.log("Informacoes :");
-    console.log(informacoesGerado);
+
 
     return (
         <div className='app-main-paciente'>
+            <ModalEditarPaciente
+                openModalEditarPT={openModalEditarPT}
+                setOpenModalEditarPT={setOpenModalEditarPT}
+                idPaciente={idPaciente}
+                dadosPaciente={dadosPaciente}
+                setFinalizarEditarPaciente={setFinalizarEditarPaciente}
+            />
+
             <section className='informacoes-paciente'>
                 {!verificadoTempo && (<AnimationsPerfil />)}
                 {verificadoTempo && (
                     <>
-                        <div className='informacoes-paciente-nome'>
-                            <h1>Paciente:</h1>
-                            <h2>{informacaoUsuario[1] ? informacaoUsuario[1][0].toUpperCase() + informacaoUsuario[1].slice(1) : "-----"}</h2>
-                        </div>
-                        <div className='informacoes-paciente-dados'>
-                            <ul>
-                                <li>CPF:  {informacaoUsuario[5] ? informacaoUsuario[5] ? (informacaoUsuario[5].slice(0, 3) + "." + informacaoUsuario[5].slice(3, 6) + "." + informacaoUsuario[5].slice(6, 9) + "-" + informacaoUsuario[5].slice(9)) : ("") : ""}</li>
-                                <li>E-mail:{informacaoUsuario[2]}</li>
-                            </ul>
-                            <ul>
-                                <li>Idade: -- </li>
-                                <li>Sexo: -- </li>
-                            </ul>
-                            <ul>
-                                <li>Telefone: {informacaoUsuario[6] ? informacaoUsuario[6] ? ("(" + informacaoUsuario[6].slice(0, 2) + ") " + informacaoUsuario[6].slice(2, 7) + "-" + informacaoUsuario[6].slice(7)) : ("") : ""}</li>
-                                <li>Cidade: ------ </li>
-                            </ul>
-                            <div>
-                                <button>
-                                    EDITAR
-                                    <EditIcon sx={{ color: '#fff', width: '20px', height: '20px' }} />
-                                </button>
-                            </div>
-                        </div>
+                        {Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) && (
+                            <>
+                                <div className='informacoes-paciente-nome'>
+                                    <h1>Informações do Paciente:</h1>
+                                    <h2>Nome: {dadosPaciente['nome'] ? dadosPaciente['nome'][0].toUpperCase() + dadosPaciente['nome'].slice(1) : "-----"}</h2>
+                                </div>
+                                <div className='informacoes-paciente-dados'>
+                                    <ul>
+                                        <li>CPF :  {dadosPaciente['cpf'] ? dadosPaciente['cpf'] ? (dadosPaciente['cpf'].slice(0, 3) + "." + dadosPaciente['cpf'].slice(3, 6) + "." + dadosPaciente['cpf'].slice(6, 9) + "-" + dadosPaciente['cpf'].slice(9)) : ("") : ""}</li>
+                                        <li>E-mail : {dadosPaciente['email']}</li>
+                                    </ul>
+                                    <ul>
+                                        <li>Idade : {dadosPaciente['data_nascimento'] ? calculaIdade(formataData(dadosPaciente['data_nascimento'])) : '---'} anos </li>
+                                        <li>Sexo : {dadosPaciente['sexo'] ? dadosPaciente['sexo'] : '---'} </li>
+                                    </ul>
+                                    <ul>
+                                        <li>Telefone : {dadosPaciente['telefone'] ? dadosPaciente['telefone'] ? ("(" + dadosPaciente['telefone'].slice(0, 2) + ") " + dadosPaciente['telefone'].slice(2, 7) + "-" + dadosPaciente['telefone'].slice(7)) : ("") : ""}</li>
+                                        <li>Cidade : {dadosPaciente['cidade'] ? dadosPaciente['cidade'] : '---'}</li>
+                                    </ul>
+                                    <ul>
+                                        <li>UF : {dadosPaciente['estado'] ? dadosPaciente['estado'] : '---'}</li>
+                                        <li>CEP : {dadosPaciente['cep'] ? dadosPaciente['cep'].slice(0, 5) + "-" + dadosPaciente['cep'].slice(5) : '---'}</li>
+                                    </ul>
+                                    <div>
+                                        <button onClick={() => openModalEditarPaciente()}>
+                                            EDITAR
+                                            <EditIcon sx={{ color: '#fff', width: '20px', height: '20px' }} />
+                                        </button>
+                                    </div>
+                                </div>
+                            </>
+                        )}
+                        {!Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) && (
+                            <>
+                                <div className='informacoes-paciente-nome'>
+                                    <h1>Informações do Paciente:</h1>
+                                    <h2>Nome: {informacaoUsuario[1] ? informacaoUsuario[1][0].toUpperCase() + informacaoUsuario[1].slice(1) : "-----"}</h2>
+                                </div>
+                                <div className='informacoes-paciente-dados'>
+                                    <ul>
+                                        <li>CPF :  {informacaoUsuario[5] ? informacaoUsuario[5] ? (informacaoUsuario[5].slice(0, 3) + "." + informacaoUsuario[5].slice(3, 6) + "." + informacaoUsuario[5].slice(6, 9) + "-" + informacaoUsuario[5].slice(9)) : ("") : ""}</li>
+
+                                    </ul>
+                                    <ul>
+                                        <li>E-mail : {informacaoUsuario[2]}</li>
+                                    </ul>
+                                    <ul>
+                                        <li>Telefone : {informacaoUsuario[6] ? informacaoUsuario[6] ? ("(" + informacaoUsuario[6].slice(0, 2) + ") " + informacaoUsuario[6].slice(2, 7) + "-" + informacaoUsuario[6].slice(7)) : ("") : ""}</li>
+
+                                    </ul>
+                                </div>
+                            </>
+                        )}
                     </>
                 )}
             </section>
@@ -404,9 +590,9 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                                         <input
                                             className='form-nome-exame-input'
                                             placeholder='Hemograma'
-                                            maxLength={100}
+                                            maxlength="100"
                                             type='text'
-                                            value={nomeExame.slice(0, (fileName.length - 4))}
+                                            value={nomeExame}
                                             onChange={(e) => setNomeExame(e.target.value)}
                                         />
                                     </form>
@@ -423,65 +609,60 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                             </div>
                             <div className='form-exame-dados'>
                                 <form>
-                                    <div className='form-principal'>
-
-                                    </div>
                                     <div className='form-dados'>
                                         {(Array.isArray(informacoesGerado)) && (
-                                            <>
-                                                <section>
-                                                    {informacoesGerado.map((item, index) => (
-                                                        <div id={`${informacoesGerado[index][`nome`]}`} key={index} className='form-dados-input-div'>
-                                                            <label>{informacoesGerado[index][`nome`]}: </label>
-                                                            <form className='form-dados-exames-gerado'>
+                                            <section>
+                                                {informacoesGerado.map((item, index) => (
+                                                    <div id={`${informacoesGerado[index][`nome`]}`} key={index} className='form-dados-input-div'>
+                                                        <label>{informacoesGerado[index][`nome`]}: </label>
+                                                        <form className='form-dados-exames-gerado'>
+                                                            <div>
+                                                                <input
+                                                                    type='text'
+                                                                    name='valorPR'
+                                                                    placeholder={`0.0`}
+                                                                    value={informacoesGerado[index][`valorPR`]}
+                                                                    onChange={(e) => handleInputChange(e, index)}
+                                                                />
+                                                                <span>{informacoesGerado[index][`unidade`]}</span>
+                                                                {(Object.keys(informacoesGerado[index]).includes('mm3')) && (
+                                                                    <>
+                                                                        <input
+                                                                            type='text'
+                                                                            name='mm3'
+                                                                            placeholder={`0.0`}
+                                                                            value={informacoesGerado[index][`mm3`]}
+                                                                            onChange={(e) => handleInputChange(e, index)}
+                                                                        />
+                                                                        <span>/mm³</span>
+                                                                    </>
+                                                                )}
+                                                            </div>
+                                                            <div className='div-valor-referencia' >
+                                                                <div className='div-span-valor-referencia'>
+                                                                    <span>Referência:</span>
+                                                                </div>
                                                                 <div>
                                                                     <input
                                                                         type='text'
-                                                                        name='valorPR'
+                                                                        name='valoRA'
                                                                         placeholder={`0.0`}
-                                                                        value={informacoesGerado[index][`valorPR`]}
+                                                                        value={informacoesGerado[index][`valoRA`]}
                                                                         onChange={(e) => handleInputChange(e, index)}
                                                                     />
-                                                                    <span>{informacoesGerado[index][`unidade`]}</span>
-                                                                    {(Object.keys(informacoesGerado[index]).includes('mm3')) && (
-                                                                        <>
-                                                                            <input
-                                                                                type='text'
-                                                                                name='mm3'
-                                                                                placeholder={`0.0`}
-                                                                                value={informacoesGerado[index][`mm3`]}
-                                                                                onChange={(e) => handleInputChange(e, index)}
-                                                                            />
-                                                                            <span>/mm³</span>
-                                                                        </>
-                                                                    )}
+                                                                    <span className='span-valor-referencia'>  a  </span>
+                                                                    <input
+                                                                        type='text'
+                                                                        name='valorB'
+                                                                        placeholder={`0.0`}
+                                                                        value={informacoesGerado[index][`valorB`]}
+                                                                        onChange={(e) => handleInputChange(e, index)}
+                                                                    />
                                                                 </div>
-                                                                <div className='div-valor-referencia' >
-                                                                    <div className='div-span-valor-referencia'>
-                                                                        <span>Referência:</span>
-                                                                    </div>
-                                                                    <div>
-                                                                        <input
-                                                                            type='text'
-                                                                            name='valoRA'
-                                                                            placeholder={`0.0`}
-                                                                            value={informacoesGerado[index][`valoRA`]}
-                                                                            onChange={(e) => handleInputChange(e, index)}
-                                                                        />
-                                                                        <span className='span-valor-referencia'>  a  </span>
-                                                                        <input
-                                                                            type='text'
-                                                                            name='valorB'
-                                                                            placeholder={`0.0`}
-                                                                            value={informacoesGerado[index][`valorB`]}
-                                                                            onChange={(e) => handleInputChange(e, index)}
-                                                                        />
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    ))}
-                                                </section>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                ))}
                                                 <form className='form-obs-exame-gerado'>
                                                     <label>Nota: </label>
                                                     <textarea
@@ -492,7 +673,8 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                                                         onChange={(e) => setObservacaoGerada(e.target.value)}
                                                     >{observacaoGerada ? observacaoGerada : " Sem observações"}</textarea>
                                                 </form>
-                                            </>
+                                            </section>
+
                                         )}
                                     </div>
                                 </form>
@@ -505,6 +687,15 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                     <button onClick={() => sendFormData()} style={{ backgroundColor: 'green' }}>enviar</button>
                 </div>
             </div>
+            {finalizarEditarPaciente && (
+                <div className="alert-CB">
+                    <Stack sx={{ width: '21%', boxShadow: `0px 4px 42px 0px #00000033 `, borderRadius: "10px" }} spacing={2}>
+                        <Alert variant="filled" severity={finalizarEditarPaciente}>
+                            {finalizarEditarPaciente === 'success' ? 'Atualização concluida com sucesso!' : "Erro na atualização!"}
+                        </Alert>
+                    </Stack>
+                </div>
+            )}
         </div>
     );
 }

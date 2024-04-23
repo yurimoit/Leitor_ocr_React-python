@@ -1,7 +1,7 @@
 import "./styles.css";
 import CloseIcon from '@mui/icons-material/Close';
 import Modal from '@mui/material/Modal';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IMaskInput } from "react-imask";
 import toast from 'react-hot-toast';
 import api from "../../services/api";
@@ -9,7 +9,7 @@ import PeopleOutlineIcon from '@mui/icons-material/PeopleOutline';
 
 
 
-export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT, setFinalizarCDPaciente }) {
+export default function ModalEditarPaciente({ setOpenModalEditarPT, openModalEditarPT, idPaciente, dadosPaciente, setFinalizarEditarPaciente }) {
 
 
     const [errorNome, setErrorNome] = useState('');
@@ -20,6 +20,7 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
     const [cep, setCep] = useState('')
     const [erroCep, setErroCep] = useState(false)
     const [erroEstado, setErroEstado] = useState("");
+    const [id, setId] = useState(null)
 
     const [form, setForm] = useState({
         nome: '',
@@ -35,6 +36,58 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
         complemento: ''
     })
 
+    console.log("FOIIIII", dadosPaciente);
+
+    useEffect(() => {
+        if (dadosPaciente) {
+            setForm({
+                nome: dadosPaciente['nome'],
+                email: dadosPaciente['email'],
+                data_nascimento: formataData(dadosPaciente['data_nascimento']),
+                sexo: dadosPaciente['sexo'],
+                cpf: dadosPaciente['cpf'],
+                telefone: dadosPaciente['telefone'],
+                logradouro: dadosPaciente['logradouro'],
+                cidade: dadosPaciente['cidade'],
+                estado: dadosPaciente['estado'],
+                bairro: dadosPaciente['bairro'],
+                complemento: dadosPaciente['complemento']
+            })
+            if (dadosPaciente['cep']) {
+                setCep(dadosPaciente['cep'])
+            }
+        }
+        setId(idPaciente)
+    }, [idPaciente, dadosPaciente])
+
+
+    function formataData(d) {
+        if (d) {
+            var dataString = d;
+
+            // Converter a string para um objeto Date
+            var data = new Date(dataString);
+
+            // Obter ano, mês e dia
+            var ano = data.getFullYear();
+            var mes = ("0" + (data.getMonth() + 1)).slice(-2); // Adiciona um zero à esquerda, se necessário
+            var dia = ("0" + (data.getDate() + 1)).slice(-2); // Adiciona um zero à esquerda, se necessário
+
+            // Formatar a data no formato ano-mes-dia
+            var dataFormatada = ano + "-" + mes + "-" + dia;
+
+            return dataFormatada
+        }
+
+        return "Sem data"
+    }
+
+
+    useEffect(() => {
+
+    }, [idPaciente])
+
+    console.log("ID paciente: ", id)
 
     async function viaCep(cep) {
         try {
@@ -60,10 +113,9 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
             if (error) {
                 setErroCep(true)
             }
-            return;
+            return
         }
     }
-
 
 
     function xpto(e) {
@@ -76,8 +128,6 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
             viaCep(cepFormatado)
         }
     }
-
-
 
 
     function handleOnchage(e) {
@@ -149,12 +199,13 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
             }
 
 
-            // eslint-disable-next-line
-            const response = await api.post('/cadastrar/paciente', {
+
+            const response = await api.put('/atualizar/paciente', {
+                id: id,
                 nome: form.nome,
                 email: form.email,
                 data_nascimento: form.data_nascimento,
-                sexo: form.sexo.trim(),
+                sexo: form.sexo,
                 cpf: form.cpf.replace(/[^0-9]/g, ''),
                 telefone: form.telefone.replace(/[^0-9]/g, ''),
                 cep: cep.replace(/[^0-9]/g, ''),
@@ -169,7 +220,7 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
                 }
             });
 
-            // console.log(response);
+            console.log(response);
 
             setForm({
                 nome: '',
@@ -185,14 +236,14 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
                 complemento: ''
             });
             setCep('');
-            setOpenModalCDPT(false)
-            setFinalizarCDPaciente("success");
+            setOpenModalEditarPT(false)
+            setFinalizarEditarPaciente("success")
 
         } catch (error) {
             if (error && error.response) {
                 toast.error(error.response.data.mensagem);
             }
-            setFinalizarCDPaciente("error");
+            setFinalizarEditarPaciente("error")
             return;
         }
     }
@@ -203,7 +254,7 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
     return (
         <div>
             <Modal
-                open={openModalCDPT}
+                open={openModalEditarPT}
                 aria-labelledby="modal-modal-title"
                 aria-describedby="modal-modal-description"
                 className="modal"
@@ -213,9 +264,9 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
                         <div className="titulo-cadastrar-paciente">
                             <div>
                                 <PeopleOutlineIcon sx={{ width: '36px', height: '36px', color: 'rgb(15, 88, 165)' }} />
-                                <h1>Cadastrar de paciente</h1>
+                                <h1>Editar dados</h1>
                             </div>
-                            <button type="button" onClick={() => setOpenModalCDPT(false)}>
+                            <button type="button" onClick={() => setOpenModalEditarPT(false)}>
                                 <CloseIcon sx={{ width: '100%', height: '100%', color: 'black' }} />
                             </button>
                         </div>
@@ -269,6 +320,7 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
                                         id="opcao1"
                                         name="sexo"
                                         value="F"
+                                        checked={form.sexo === "F"}
                                         onChange={(e) => handleOnchage(e)}
                                     />
 
@@ -277,7 +329,8 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
                                         type="radio"
                                         id="opcao2"
                                         name="sexo"
-                                        value="M"
+                                        value='M'
+                                        checked={form.sexo === "M"}
                                         onChange={(e) => handleOnchage(e)}
                                     />
                                 </div>
@@ -390,7 +443,7 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
 
                         </form>
                         <section className="bnts-cliente">
-                            <button type='button1' onClick={() => setOpenModalCDPT(false)} className="btn-cancelar">
+                            <button type='button1' onClick={() => setOpenModalEditarPT(false)} className="btn-cancelar">
                                 Cancelar
                             </button>
                             <button onClick={(e) => handleSubmit(e)} type="submit" className="btn-aplicar">

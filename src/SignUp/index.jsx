@@ -59,7 +59,7 @@ function SignUp() {
       })
 
       if (response.data) {
-        console.log(response.data)
+        // console.log(response.data)
       }
 
       setForm({
@@ -75,7 +75,8 @@ function SignUp() {
 
     } catch (error) {
       toast.error("Erro ao fazer o cadastro, tente novamente")
-      console.log(error);
+      // console.log(error);
+      return
     }
   }
 

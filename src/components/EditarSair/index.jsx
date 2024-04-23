@@ -12,7 +12,9 @@ export default function EditarSair({ setIsOpen, setStatusWindows }) {
     }
 
     function logouUsuario() {
-        localStorage.removeItem('token')
+        localStorage.removeItem('E%H6%2&6GB8UU!UZ3XncHd')
+        localStorage.removeItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')
+        localStorage.removeItem('SMoYgVd$Q6Qf2#g@fG5XTgH')
         navgate('/')
     }
 

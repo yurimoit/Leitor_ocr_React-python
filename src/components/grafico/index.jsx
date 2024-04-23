@@ -3,8 +3,8 @@ import React, { useEffect, useState } from 'react';
 import { Bar, Line } from 'react-chartjs-2';
 import 'chart.js/auto'; // Importa todas as escalas
 import 'chartjs-plugin-datalabels';
-import api from '../../services/api';
-import Tune from '@mui/icons-material/Tune';
+// import api from '../../services/api';
+// import Tune from '@mui/icons-material/Tune';
 
 
 const options = {
@@ -29,10 +29,10 @@ function ChartComponent({ dataDados, line, name }) {
         }
     );
     const [nameDado, setNameDado] = useState('');
-    const [valoresSD, setValoresSD] = useState([]);
-    const [saldo, setSaldo] = useState([]);
+    // const [valoresSD, setValoresSD] = useState([]);
+    // const [saldo, setSaldo] = useState([]);
 
-    console.log("Dados aqui-----:", dataDados);
+    // console.log("Dados aqui-----:", dataDados);
 
     useEffect(() => {
         if (dataDados) {
@@ -43,16 +43,17 @@ function ChartComponent({ dataDados, line, name }) {
 
 
 
-    async function gerarGrafico() {
-        try {
-            const response = await api.get("/gerarGrafico");
+    // async function gerarGrafico() {
+    //     try {
+    //         // eslint-disable-next-line
+    //         const response = await api.get("/gerarGrafico");
 
 
 
-        } catch (error) {
-            console.log(error);
-        }
-    }
+    //     } catch (error) {
+    //         console.log(error);
+    //     }
+    // }
 
 
 

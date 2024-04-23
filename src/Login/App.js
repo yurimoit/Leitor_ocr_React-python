@@ -38,19 +38,32 @@ function Login({ setVerificacao }) {
         email, senha
       })
 
-      if (response.data) {
-        console.log(response.data)
-        localStorage.setItem('token', response.data.token)
-        setVerificacao(true)
+      if (response && response.data) {
+        // console.log(response.data)
+        localStorage.setItem('E%H6%2&6GB8UU!UZ3XncHd', response.data.token)
+
+
+        if (response.data.usuario && response.data.usuario['verificacao'] === true) {
+          setEmail('')
+          setSenha('')
+          navigate2('/home')
+          localStorage.setItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27', response.data.tokenn)
+          return
+        }
+
+        setEmail('')
+        setSenha('')
+        navigate2('/home/usuario')
+        if (Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27'))) {
+          localStorage.removeItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')
+        }
+
       }
 
-      setEmail('');
-      setSenha('')
-      navigate2('/home');
 
       toast.success("Acesso permitido com sucesso!");
     } catch (error) {
-      console.log(error)
+      // console.log(error)
       toast.error(error.response.data.mensagem)
     }
 

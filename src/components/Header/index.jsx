@@ -4,10 +4,10 @@ import EditarSair from '../EditarSair';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import './styles.css'
-import InsightsIcon from '@mui/icons-material/Insights';
-import SsidChartIcon from '@mui/icons-material/SsidChart';
-import TimelineIcon from '@mui/icons-material/Timeline';
 import AlignVerticalBottomIcon from '@mui/icons-material/AlignVerticalBottom';
+// import InsightsIcon from '@mui/icons-material/Insights';
+// import SsidChartIcon from '@mui/icons-material/SsidChart';
+// import TimelineIcon from '@mui/icons-material/Timeline';
 
 export default function Header({ statusWindows, setStatusWindows, modalIsOpen, setIsOpen, usuario }) {
 

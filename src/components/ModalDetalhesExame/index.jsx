@@ -62,7 +62,9 @@ export function ModalDetalhesExame({ setCloseModalDetalhar, idDetalharExame, exa
         },
         { 'nome': 'plaquetas', 'valorPR': '--', 'valoRA': '--', 'valorB': '--', 'unidade': '/mm³' }
     ])
-    const [id, setId] = useState(null)
+    const [
+        // eslint-disable-next-line
+        id, setId] = useState(null)
     const [nome, setNome] = useState(null)
     const [obs, setObs] = useState(null)
     const [dataExame, setDataExame] = useState('')
@@ -88,8 +90,8 @@ export function ModalDetalhesExame({ setCloseModalDetalhar, idDetalharExame, exa
 
 
 
-    console.log("id", id);
-    console.log("Array Exame", detalhesExame);
+    // console.log("id", id);
+    // console.log("Array Exame", detalhesExame);
 
 
     return (
@@ -144,7 +146,14 @@ export function ModalDetalhesExame({ setCloseModalDetalhar, idDetalharExame, exa
                                     <h2>
                                         Nota:
                                     </h2>
-                                    <p > {obs ? obs : " Sem observações"}</p>
+                                    <textarea
+                                        id="textoArea"
+                                        rows="4"
+                                        cols="150"
+                                        value={obs}
+                                    // onChange={(e) => setObs(e.target.value)}
+                                    >{obs ? obs : " Sem observações"}</textarea>
+                                    {/* <p > {obs ? obs : " Sem observações"}</p> */}
                                 </div>
                             </section>
                         </section>

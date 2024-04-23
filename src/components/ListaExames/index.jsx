@@ -14,7 +14,7 @@ import Stack from '@mui/material/Stack';
 import ModalDeletarExame from '../ModalDeletarExame';
 import ResultadoNaoEncontrado from '../ResultadoNaoEncontrado';
 
-export default function ListaExames() {
+export default function ListaExames({ idPaciente }) {
 
     const [closeModalDetalhar, setCloseModalDetalhar] = useState(false)
     const [closeModalEditar, setCloseModalEditar] = useState(false)
@@ -28,6 +28,15 @@ export default function ListaExames() {
     const [finalizarDeletarExame, setFinalizarDeletarExame] = useState("");
     const [data, setData] = useState('')
     const [resultadoNaoEncontrado, setResultadoNaoEncontrado] = useState(false)
+    const [isPaciente, setIsPaciente] = useState(null)
+
+    useEffect(() => {
+        if (idPaciente) {
+            setIsPaciente(idPaciente)
+        }
+    }, [idPaciente])
+
+
 
 
     function formataData(d) {
@@ -52,23 +61,6 @@ export default function ListaExames() {
     }
 
 
-    const arrayTeste = [
-        {
-            id: '12343',
-            nome: 'Hemograma',
-            status: 'Pendente',
-        },
-        {
-            id: '12993',
-            nome: 'Hemograma',
-            status: 'Pendente',
-        },
-        {
-            id: '89943',
-            nome: 'Hemograma-completo',
-            status: 'Concluido',
-        }
-    ]
     const [arrayGerado, setArrayGerado] = useState([{
         id: 0,
         lista_dados: [],
@@ -80,20 +72,34 @@ export default function ListaExames() {
 
     async function filtraExames(pesquisa2) {
         try {
-            const response = await api.get(`/buscar/exames?busca=${pesquisa2}`, {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
-                }
-            })
+            if (!Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27'))) {
+                const response = await api.get(`/buscar/exames?busca=${pesquisa2}&id=${null}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                    }
+                })
 
-            if (response.data) {
-                console.log(response.data);
-                setResultadoNaoEncontrado(false);
-                setArrayGerado([...response.data])
+                if (response.data) {
+                    // console.log(response.data);
+                    setResultadoNaoEncontrado(false);
+                    setArrayGerado([...response.data])
+                }
+            } else if (localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')) {
+                const response = await api.get(`/buscar/exames?busca=${pesquisa2}&id=${localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                    }
+                })
+
+                if (response.data) {
+                    // console.log(response.data);
+                    setResultadoNaoEncontrado(false);
+                    setArrayGerado([...response.data])
+                }
             }
         } catch (error) {
             setResultadoNaoEncontrado(true);
-            console.log(error);
+            // console.log(error);
         }
     }
 
@@ -123,31 +129,46 @@ export default function ListaExames() {
 
     }
 
-    console.log("Data----------:", formataData(data));
 
 
     async function getBanco() {
         try {
-            const response = await api.get('/getBanco', {
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+            if (!Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27'))) {
+                const response = await api.get(`/getBanco?id=${null}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                    }
+                })
+
+
+                if (response && response.data) {
+                    // console.log(response.data);
+                    setArrayGerado([...response.data])
                 }
-            })
+
+                setVerificadorTempo(true)
+            } else if (localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')) {
+                const response = await api.get(`/getBanco?id=${localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')}`, {
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                    }
+                })
 
 
-            if (response && response.data) {
-                console.log(response.data);
-                setArrayGerado([...response.data])
+                if (response && response.data) {
+                    // console.log(response.data);
+                    setArrayGerado([...response.data])
+                }
+
+                setVerificadorTempo(true)
             }
-
-            setVerificadorTempo(true)
             return 'foi'
         } catch (error) {
             console.log(error);
         }
     }
 
-    console.log("ArrayGerado: ", arrayGerado);
+    // console.log("ArrayGerado: ", arrayGerado);
 
     useEffect(() => {
         if (finalizarEditarExame) {
@@ -168,7 +189,9 @@ export default function ListaExames() {
 
     useEffect(() => {
         getBanco()
-    }, [closeModalDetalhar, closeModalEditar, idDetalharExame, closeModalDeletar])
+    },
+        // eslint-disable-next-line 
+        [closeModalDetalhar, closeModalEditar, idDetalharExame, closeModalDeletar, isPaciente])
 
 
 
@@ -212,7 +235,7 @@ export default function ListaExames() {
                             className='buscar-exames'
                             type="text"
                             maxlength="33"
-                            placeholder='Pesquisa exame'
+                            placeholder='Pesquisa exame: ID, Nome, Data (2024-00-00)'
                             onChange={(e) => filtraExames(e.target.value)}
                         />
                         <button onClick={() => filtraExames("")} className='button-search'>
@@ -222,8 +245,7 @@ export default function ListaExames() {
                 </div>
             </nav>
             <section className='section-main-lista-exames-usuario'>
-                {resultadoNaoEncontrado && (<ResultadoNaoEncontrado />)}
-                {!resultadoNaoEncontrado && (
+                {true && (
                     <>
                         <div className='cabecalho-tabela-lista-exames-usuario'>
                             <div className='cabecalho-tabela-div-id'>
@@ -244,24 +266,27 @@ export default function ListaExames() {
                             </div>
 
                         </div>
-                        <div className='tabela-lista-exames-usuario'>
-                            {!verificadoTempo && (< Animations />)}
-                            {verificadoTempo && arrayGerado.map((item) => (
-                                <ul key={item.id}>
-                                    <li onClick={() => abrirModal(item.id, item.lista_dados, item.nome_exame, item.observacao, item.data_exame)} className='li-detalhar-paciente-lista-exames-usuario'  /*onClick={() =>openModalDetalhar()}*/>{item.id}</li>
-                                    <li className='li-nome-paciente-lista-exames-usuario'>{item.nome_exame}</li>
-                                    <li className='li-staus-paciente-lista-exames-usuario' >{formataData(item.data_exame) ? `${formataData(item.data_exame).slice(8)}/${formataData(item.data_exame).slice(5, 7)}/${formataData(item.data_exame).slice(0, 4)}` : 'Sem data'}</li>
-                                    <li className='li-button-opcoes-lista-exames-usuario'>
-                                        <button onClick={() => abrirModalEditar(item.id, item.lista_dados, item.nome_exame, item.observacao, item.data_exame)} className='button-opcoes-lista-exames-usuario'>
-                                            <ModeEditIcon sx={{ color: 'green' }} />
-                                        </button>
-                                        <button onClick={() => abrirModalDeletar(item.id)} className='button-opcoes-lista-exames-usuario'>
-                                            <DeleteForeverIcon sx={{ color: 'red' }} />
-                                        </button>
-                                    </li>
-                                </ul>
-                            ))}
-                        </div>
+                        {resultadoNaoEncontrado && (<ResultadoNaoEncontrado />)}
+                        {!resultadoNaoEncontrado && (
+                            <div className='tabela-lista-exames-usuario'>
+                                {!verificadoTempo && (< Animations />)}
+                                {verificadoTempo && arrayGerado.map((item) => (
+                                    <ul key={item.id}>
+                                        <li onClick={() => abrirModal(item.id, item.lista_dados, item.nome_exame, item.observacao, item.data_exame)} className='li-detalhar-paciente-lista-exames-usuario'  /*onClick={() =>openModalDetalhar()}*/>{item.id}</li>
+                                        <li className='li-nome-paciente-lista-exames-usuario'>{item.nome_exame}</li>
+                                        <li className='li-staus-paciente-lista-exames-usuario' >{formataData(item.data_exame) ? `${formataData(item.data_exame).slice(8)}/${formataData(item.data_exame).slice(5, 7)}/${formataData(item.data_exame).slice(0, 4)}` : 'Sem data'}</li>
+                                        <li className='li-button-opcoes-lista-exames-usuario'>
+                                            <button onClick={() => abrirModalEditar(item.id, item.lista_dados, item.nome_exame, item.observacao, item.data_exame)} className='button-opcoes-lista-exames-usuario'>
+                                                <ModeEditIcon sx={{ color: 'green' }} />
+                                            </button>
+                                            <button onClick={() => abrirModalDeletar(item.id)} className='button-opcoes-lista-exames-usuario'>
+                                                <DeleteForeverIcon sx={{ color: 'red' }} />
+                                            </button>
+                                        </li>
+                                    </ul>
+                                ))}
+                            </div>
+                        )}
                     </>
                 )}
             </section>

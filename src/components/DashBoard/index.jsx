@@ -4,27 +4,27 @@ import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import './styles.css'
 import api from '../../services/api'
 
 
-export default function DashBoard() {
+export default function DashBoard({ idPaciente }) {
 
     const [listaResultadosDados, setListaResultadosDados] = useState({})
     const [currentPage, setCurrentPage] = useState(1);
 
-    const [listaTextoLeocograma, setListaTextoLeocograma] = useState([{
-        name: 'leucocitos - global',
-        text: `Os leucócitos são as células de defesa responsáveis por combater agentes invasores. Na verdade, 
+    const [listaTextoLeocograma,
+        // eslint-disable-next-line
+        setListaTextoLeocograma] = useState([{
+            name: 'leucocitos - global',
+            text: `Os leucócitos são as células de defesa responsáveis por combater agentes invasores. Na verdade, 
         os leucócitos não são um tipo único de célula, mas sim um grupo de diferentes células,
         com diferentes funções no sistema imune. 
         Alguns leucócitos atacam diretamente o invasor, 
         outros produzem anticorpos e alguns apenas fazem a identificação do microrganismo invasor.`
-    }, {
-        name: 'neutrofilos bastonetes',
-        text: `O neutrófilo é o tipo de leucócito mais comum. Representa,
+        }, {
+            name: 'neutrofilos bastonetes',
+            text: `O neutrófilo é o tipo de leucócito mais comum. Representa,
         em média, de 45% a 75% dos leucócitos circulantes.
         Os neutrófilos são especializados no combate a bactérias.
         Quando há uma infecção bacteriana, a medula óssea aumenta a sua produção, 
@@ -42,9 +42,9 @@ export default function DashBoard() {
         exército não manda só os seus soldados mais experientes,
         ele manda aqueles que estão disponíveis.
         `
-    }, {
-        name: 'neutrofilos segmentados',
-        text: `O neutrófilo é o tipo de leucócito mais comum. Representa,
+        }, {
+            name: 'neutrofilos segmentados',
+            text: `O neutrófilo é o tipo de leucócito mais comum. Representa,
         em média, de 45% a 75% dos leucócitos circulantes.
         Os neutrófilos são especializados no combate a bactérias.
         Quando há uma infecção bacteriana, a medula óssea aumenta a sua produção, 
@@ -59,10 +59,10 @@ export default function DashBoard() {
         Em muitas situações temos simultaneamente aumento dos bastões e
         dos segmentados.
         `
-    },
-    {
-        name: 'linfocitos',
-        text: `Os linfócitos são o segundo tipo mais comum de glóbulos
+        },
+        {
+            name: 'linfocitos',
+            text: `Os linfócitos são o segundo tipo mais comum de glóbulos
         brancos. Representam de 15 a 45% dos leucócitos no sangue.
 
         Os linfócitos são as principais linhas de defesa contra infecções
@@ -73,9 +73,9 @@ export default function DashBoard() {
         de linfócitos aumente, às vezes, ultrapassando o número
         de neutrófilos e tornando-se o tipo de leucócito mais presente
         na circulação.`
-    }, {
-        name: 'monocitos',
-        text: `
+        }, {
+            name: 'monocitos',
+            text: `
         Os monócitos representam normalmente de 3 a 10% dos leucócitos
         circulantes. São ativados tanto em processos virais quanto 
         bacterianos. Quando um tecido está sendo invadido por algum germe, 
@@ -90,9 +90,9 @@ export default function DashBoard() {
         Os monócitos tipicamente se elevam nos casos de infecções, 
         principalmente naquelas mais crônicas, como a tuberculose.
         `
-    }, {
-        name: 'eosinofilos',
-        text: `Os eosinófilos são os leucócitos responsáveis pelo combate 
+        }, {
+            name: 'eosinofilos',
+            text: `Os eosinófilos são os leucócitos responsáveis pelo combate 
         de parasitos e pelo mecanismo da alergia. Apenas de 1 a 5% dos 
         leucócitos circulantes são eosinófilos.
 
@@ -102,9 +102,9 @@ export default function DashBoard() {
         Eosinofilia: é o termo usado quando há aumento do número de eosinófilos.
 
         Eosinopenia: é o termo usado quando há redução do número de eosinófilos.`
-    }, {
-        name: 'basafilos',
-        text: `Os basófilos são o tipo menos comum de leucócitos no sangue. 
+        }, {
+            name: 'basafilos',
+            text: `Os basófilos são o tipo menos comum de leucócitos no sangue. 
         Representam de 0 a 2% dos glóbulos brancos.
 
         Elevação dos basófilos ocorre habitualmente em reações alérgicas, 
@@ -117,9 +117,9 @@ export default function DashBoard() {
         (também chamado de basofilia).
 
         Basopenia: refere-se à redução do número de basófilos no sangue.`
-    }, {
-        name: 'plaquetas',
-        text: `As plaquetas são fragmentos de células responsáveis pelo 
+        }, {
+            name: 'plaquetas',
+            text: `As plaquetas são fragmentos de células responsáveis pelo 
         início do processo de coagulação. Quando um tecido de qualquer 
         vaso sanguíneo é lesado, o organismo rapidamente encaminha as 
         plaquetas ao local da lesão. As plaquetas se agrupam e formam um 
@@ -130,11 +130,13 @@ export default function DashBoard() {
         O valor normal das plaquetas varia entre 150.000 a 450.000 por 
         microlitro (uL). Porém, até valores próximos de 50.000, 
         o organismo não apresenta dificuldades em iniciar a coagulação.`
-    }])
+        }])
 
-    const [listaTextoIndicesEritogrma, setListaTextoIndicesEritogrma] = useState([{
-        nome: 'rdw',
-        texto: `O RDW é um índice que avalia a diferença de tamanho entre 
+    const [listaTextoIndicesEritogrma,
+        // eslint-disable-next-line
+        setListaTextoIndicesEritogrma] = useState([{
+            nome: 'rdw',
+            texto: `O RDW é um índice que avalia a diferença de tamanho entre 
         as hemácias.
         Quando este está elevado significa que existem muitas hemácias 
         de tamanhos diferentes circulando.
@@ -143,17 +145,17 @@ export default function DashBoard() {
         na carência de ferro, onde a falta deste elemento 
         impede a formação da hemoglobina normal,
         levando à formação de uma hemácia de tamanho reduzido.`
-    }, {
-        nome: 'vcm',
-        texto: `O volume globular médio (VGM) ou volume corpuscular médio (VCM),
+        }, {
+            nome: 'vcm',
+            texto: `O volume globular médio (VGM) ou volume corpuscular médio (VCM),
         mede o tamanho das hemácias.
         <br></br>
         Um VCM elevado indica hemácias macrocíticas, ou seja, hemácias grandes.
         VCM reduzidos indicam hemácias microcíticas, isto é, de tamanho diminuído.
         Esse dado ajuda a diferenciar os vários tipos de anemia.`
-    }, {
-        nome: 'hcm e chcm',
-        texto: `
+        }, {
+            nome: 'hcm e chcm',
+            texto: `
         Os dois valores indicam basicamente o mesmo, a quantidade de hemoglobina nas hemácias.
         Quando as hemácias têm poucas hemoglobinas, elas são ditas hipocrômicas.
         Quando têm muitas, são hipercrômicas.
@@ -165,7 +167,7 @@ export default function DashBoard() {
         O CHCM (concentração de hemoglobina corpuscular média)
         ou CHGM (concentração de hemoglobina globular média)
         avalia a concentração de hemoglobina dentro da hemácia.`
-    }])
+        }])
 
     const [textoLeocograma, setTextoLeocograma] = useState('')
 
@@ -176,6 +178,7 @@ export default function DashBoard() {
 
         return palavra
     }
+
 
     const handleChange = (event, value) => {
         setCurrentPage(value);
@@ -329,17 +332,32 @@ export default function DashBoard() {
 
     async function buscarExames() {
         try {
-            const response = await api.get('/getBanco/exames',
-                {
-                    headers: {
-                        Authorization: `Bearer ${localStorage.getItem('token')}`
+            if (!Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27'))) {
+                const response = await api.get(`/getBanco/exames?id=${null}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                        }
                     }
-                }
-            )
+                )
 
-            if (response && response.data) {
-                console.log(response.data);
-                setListaResultadosDados(response.data)
+                if (response && response.data) {
+                    // console.log(response.data);
+                    setListaResultadosDados(response.data)
+                }
+            } else if (localStorage.getItem('id_paciente')) {
+                const response = await api.get(`/getBanco/exames?id=${localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                        }
+                    }
+                )
+
+                if (response && response.data) {
+                    // console.log(response.data);
+                    setListaResultadosDados(response.data)
+                }
             }
         } catch (error) {
             console.log(error);
@@ -348,13 +366,10 @@ export default function DashBoard() {
 
     useEffect(() => {
         buscarExames()
-    }, [])
+    },
+        // eslint-disable-next-line 
+        [])
 
-
-
-
-    console.log("RESULTADO:", listaResultadosDados);
-    // console.log("HEMACIAS:", listaResultadosDados.hemacias);
 
 
 

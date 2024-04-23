@@ -68,6 +68,14 @@ export function ModalEditarExame({ setCloseModalEditar, idDetalharExame, exame, 
     const [nome, setNome] = useState(null)
     const [obs, setObs] = useState(null)
     const [dataExame, setDataExame] = useState('')
+    const [textoNota, setTextoNota] = useState('')
+
+
+    useEffect(() => {
+        if (obs) {
+            setTextoNota(obs)
+        }
+    }, [obs])
 
     function capitalize(palavra) {
         if (palavra) {
@@ -125,7 +133,7 @@ export function ModalEditarExame({ setCloseModalEditar, idDetalharExame, exame, 
 
         if (detalhesExame) {
             let lista = detalhesExame
-            console.log("Lista da func verifica: ", lista);
+            // console.log("Lista da func verifica: ", lista);
             for (let objeto of lista) {
                 for (let chave of Object.keys(objeto)) {
                     if (chave === 'nome' || chave === 'unidade') {
@@ -178,19 +186,19 @@ export function ModalEditarExame({ setCloseModalEditar, idDetalharExame, exame, 
                 }
             }, {
                 headers: {
-                    Authorization: `Bearer ${localStorage.getItem('token')}`
+                    Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
                 }
             })
 
             if (response && response.data) {
-                console.log(response.data);
+                // console.log(response.data);
                 // toast.success(response.data.mensagem)
             }
             setFinalizarEditarExame("success")
             setCloseModalEditar(false)
             // setTempoEnvio(true)
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             setFinalizarEditarExame("error")
         }
 
@@ -210,8 +218,8 @@ export function ModalEditarExame({ setCloseModalEditar, idDetalharExame, exame, 
 
 
 
-    console.log("id", id);
-    console.log("Array Exame", detalhesExame);
+    // console.log("id", id);
+    // console.log("Array Exame", detalhesExame);
 
 
     return (
@@ -295,7 +303,7 @@ export function ModalEditarExame({ setCloseModalEditar, idDetalharExame, exame, 
                                                 value={objeto.valoRA}
                                                 onChange={(e) => handleInputChange(e, detalhesExame.indexOf(objeto))}
                                             />
-                                            <p>A</p>
+                                            <p>Até</p>
                                             <input
                                                 type='text'
                                                 name='valorB'
@@ -316,9 +324,9 @@ export function ModalEditarExame({ setCloseModalEditar, idDetalharExame, exame, 
                                         id="textoArea"
                                         rows="4"
                                         cols="150"
-                                        value={obs}
+                                        value={textoNota}
                                         onChange={(e) => setObs(e.target.value)}
-                                    >{obs ? obs : " Sem observações"}</textarea>
+                                    >{textoNota ? textoNota : " Sem observações"}</textarea>
                                 </div>
                             </section>
                         </section>
