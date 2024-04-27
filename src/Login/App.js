@@ -64,7 +64,11 @@ function Login({ setVerificacao }) {
       toast.success("Acesso permitido com sucesso!");
     } catch (error) {
       // console.log(error)
-      toast.error(error.response.data.mensagem)
+      if (error && error.response.data.mensagem) {
+        toast.error(error.response.data.mensagem)
+      } else {
+        toast.error("Erro ao fazer login.")
+      }
     }
 
 

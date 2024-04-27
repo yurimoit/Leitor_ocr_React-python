@@ -51,7 +51,6 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
         6: ""
     })
 
-    console.log("DADOS PACIENTE", arrayPacientes);
 
 
     async function filtraPacientes(pesquisa2) {
@@ -138,6 +137,7 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
                 setArrayPacientes(response.data)
             }
         } catch (error) {
+            toast.error("Não foi possivel obter pacientes")
             return
             // console.log(error);
         }
