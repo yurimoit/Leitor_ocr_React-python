@@ -36,7 +36,6 @@ export default function ModalEditarPaciente({ setOpenModalEditarPT, openModalEdi
         complemento: ''
     })
 
-    console.log("FOIIIII", dadosPaciente);
 
     useEffect(() => {
         if (dadosPaciente) {
@@ -87,7 +86,6 @@ export default function ModalEditarPaciente({ setOpenModalEditarPT, openModalEdi
 
     }, [idPaciente])
 
-    console.log("ID paciente: ", id)
 
     async function viaCep(cep) {
         try {
@@ -199,7 +197,7 @@ export default function ModalEditarPaciente({ setOpenModalEditarPT, openModalEdi
             }
 
 
-
+            // eslint-disable-next-line 
             const response = await api.put('/atualizar/paciente', {
                 id: id,
                 nome: form.nome,
@@ -220,7 +218,7 @@ export default function ModalEditarPaciente({ setOpenModalEditarPT, openModalEdi
                 }
             });
 
-            console.log(response);
+            // console.log(response);
 
             setForm({
                 nome: '',
