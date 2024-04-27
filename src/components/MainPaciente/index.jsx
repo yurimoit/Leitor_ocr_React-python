@@ -285,7 +285,7 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                 }
             });
 
-            console.log(response);
+            // console.log(response);
 
             const { filename } = response.data;
             setImageNome(filename);
@@ -295,7 +295,7 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
 
         } catch (error) {
             toast.error("Error ao enviar a imagem!")
-            console.log(error);
+            // console.log(error);
         }
     }
 
