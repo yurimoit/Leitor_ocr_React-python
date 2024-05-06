@@ -299,6 +299,7 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
         }
     }
 
+
     async function getTexto() {
         try {
             const response = await api.get('/getLeitura', {
@@ -319,7 +320,7 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
             verificaCampo()
         } catch (error) {
             toast.error("Error no servidor!")
-            // console.log(error);
+            console.log(error);
         }
     }
 
@@ -347,6 +348,8 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
 
         return verifica
     }
+
+
 
     async function sendFormData() {
         verificaCampo()
