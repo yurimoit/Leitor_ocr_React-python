@@ -46,22 +46,23 @@ function Login({ setVerificacao }) {
         if (response.data.usuario && response.data.usuario['verificacao'] === true) {
           setEmail('')
           setSenha('')
-          navigate2('/home')
+          toast.success("Acesso permitido com sucesso!")
           localStorage.setItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27', response.data.tokenn)
+          navigate2('/home')
           return
         }
 
         setEmail('')
         setSenha('')
-        navigate2('/home/usuario')
+        toast.success("Acesso permitido com sucesso!")
         if (Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27'))) {
           localStorage.removeItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')
         }
+        navigate2('/home/usuario')
 
       }
 
 
-      toast.success("Acesso permitido com sucesso!");
     } catch (error) {
       // console.log(error)
       if (error && error.response.data.mensagem) {

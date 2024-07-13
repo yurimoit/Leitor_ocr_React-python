@@ -21,6 +21,7 @@
   padding: 0px 200px;
 
   margin-bottom: 130px;
+
 }
 
 .text-login {
@@ -158,6 +159,8 @@ h2 {
   right: 10px;
   transform: translateY(-50%);
   border: none;
+
+  background-color: #7a78d900;
 
 }
 

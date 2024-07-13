@@ -188,7 +188,8 @@ function EditProfile({ modalIsOpen, setIsOpen, usuario }) {
             <button onClick={closeModal} className="exit">
               <CloseIcon sx={{
                 width: '100%', height: '100%', color: 'black', transition: 'transform 0.2s', '&:hover': {
-                  transform: 'scale(1.08)'
+                  transform: 'scale(1.08)',
+                  color: 'red'
                 }
               }} />
             </button>

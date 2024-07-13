@@ -41,7 +41,9 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
     const [informacoesGerado, setInformacoeGerado] = useState([])
     const [tempoEnvio, setTempoEnvio] = useState(false)
     const [tempoEnvioArquivo, setTempoEnvioArquivo] = useState(false)
+    const [tempoEnvioArquivo2, setTempoEnvioArquivo2] = useState(false)
     const [finalizarEditarPaciente, setFinalizarEditarPaciente] = useState('')
+    const [finalizarCadastroExame, setFinalizarCadastroExame] = useState('')
     const [openModalEditarPT, setOpenModalEditarPT] = useState(false)
     const [idPaciente, setIdPaciente] = useState(null)
     const [dadosPaciente, setDadosPaciente] = useState([])
@@ -59,33 +61,19 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
         setOpenModalEditarPT(true)
     }
 
-    function formataData(d) {
-        if (d) {
-            var dataString = d;
 
-            // Converter a string para um objeto Date
-            var data = new Date(dataString);
+    function formataData(dateString) {
 
-            // Obter ano, mês e dia
-            var ano = data.getFullYear();
-            var mes = ("0" + (data.getMonth() + 1)).slice(-2); // Adiciona um zero à esquerda, se necessário
-            var dia = ("0" + (data.getDate() + 1)).slice(-2); // Adiciona um zero à esquerda, se necessário
+        dateString = String(dateString)
+        const date = new Date(dateString);
+        const year = date.getUTCFullYear();
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
 
-            // Formatar a data no formato ano-mes-dia
-            var dataFormatada = ano + "-" + mes + "-" + dia;
-
-
-            return dataFormatada
-        }
-
-        return "INDIFIDO"
+        return `${year}-${month}-${day}`;
     }
 
     function calculaIdade(d = '0000-00-00') {
-
-        if (d === "INDIFIDO") {
-            return "INDIFIDO"
-        }
 
         let ano = d.slice(0, 4)
         let mes = d.slice(5, 7)
@@ -213,6 +201,7 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                     // console.log("Dados do get:", response.data);
                     setIformacaoUsuario(response.data)
                     setDadosPaciente(response.data[0])
+                    console.log("DATA: ", response.data[0]);
                     setIdPaciente(localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH'))
                 }
 
@@ -247,6 +236,14 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
             }, 2500)
         }
     }, [finalizarEditarPaciente])
+
+    useEffect(() => {
+        if (finalizarCadastroExame) {
+            setTimeout(() => {
+                setFinalizarCadastroExame("")
+            }, 3000)
+        }
+    }, [finalizarCadastroExame])
 
 
     useEffect(() => {
@@ -291,6 +288,7 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
             setImageNome(filename);
 
             toast.success(`Enviado com sucesso!`);
+            setTempoEnvioArquivo2(true)
             getTexto()
 
         } catch (error) {
@@ -317,10 +315,10 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
             setInformacoeGerado(lista_dados)
             setUrl(url_exame);
             setTempoEnvioArquivo(true)
-            verificaCampo()
         } catch (error) {
-            toast.error("Error no servidor!")
-            console.log(error);
+            setTempoEnvioArquivo(false)
+            setTempoEnvioArquivo2(false)
+            setFinalizarCadastroExame("error")
         }
     }
 
@@ -371,7 +369,10 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                     'url_exame': url,
                     'lista_dados': informacoesGerado,
                     'observacao': observacaoGerada,
-                    'data_exame': dataExame
+                    'data_exame': dataExame,
+                    "nome_paciente": Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) ? dadosPaciente['nome'] : informacaoUsuario[1],
+                    "data_nascimento": Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) ? dadosPaciente['data_nascimento'] : null,
+                    "sexo": Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) ? dadosPaciente['sexo'] : "I",
                 }
             }, {
                 headers: {
@@ -396,7 +397,6 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
         if (tempoEnvio) {
             setTimeout(() => {
                 setTempoEnvio(false)
-                toast.success('Enviado com sucesso!')
                 setInformacoeGerado()
                 setUrl('')
                 setNomeTexto('')
@@ -404,15 +404,17 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                 setFile(null)
                 setNomeExame('')
                 setFileName("No selected file")
-            }, 3000)
+                setFinalizarCadastroExame("success")
+            }, 2500)
         }
-        if (tempoEnvioArquivo) {
+        if (tempoEnvioArquivo && tempoEnvioArquivo2) {
             setTimeout(() => {
                 setTempoEnvioArquivo(false)
+                setTempoEnvioArquivo2(false)
                 toast.success(`Gerador texto com sucesso!!`)
-            }, 3000)
+            }, 2500)
         }
-    }, [tempoEnvio, tempoEnvioArquivo, image])
+    }, [tempoEnvio, tempoEnvioArquivo, image, tempoEnvioArquivo2])
 
 
 
@@ -476,6 +478,12 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                                     </ul>
                                     <ul>
                                         <li>E-mail : {informacaoUsuario[2]}</li>
+                                    </ul>
+                                    <ul>
+                                        <li>Sexo : {"I"}</li>
+                                    </ul>
+                                    <ul>
+                                        <li>Idade : {"Add Lógica"}</li>
                                     </ul>
                                     <ul>
                                         <li>Telefone : {informacaoUsuario[6] ? informacaoUsuario[6] ? ("(" + informacaoUsuario[6].slice(0, 2) + ") " + informacaoUsuario[6].slice(2, 7) + "-" + informacaoUsuario[6].slice(7)) : ("") : ""}</li>
@@ -580,11 +588,11 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
 
 
                     </div>
-                    {(tempoEnvio || tempoEnvioArquivo) && (
+                    {(tempoEnvio || tempoEnvioArquivo || tempoEnvioArquivo2) && (
                         <div className='loard-temporizado'>
                             <Loaders />
                         </div>)}
-                    {!(tempoEnvio || tempoEnvioArquivo) && (
+                    {!(tempoEnvio || tempoEnvioArquivo || tempoEnvioArquivo2) && (
                         <div className='text-gerado-arquivo-exame'>
                             <div className='form-exame-tiulo'>
                                 <aside>
@@ -692,9 +700,44 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
             </div>
             {finalizarEditarPaciente && (
                 <div className="alert-CB">
-                    <Stack sx={{ width: '21%', boxShadow: `0px 4px 42px 0px #00000033 `, borderRadius: "10px" }} spacing={2}>
-                        <Alert variant="filled" severity={finalizarEditarPaciente}>
+                    <Stack sx={{
+                        width: '21%',
+                        boxShadow: `1px 1px 5px black `,
+                        borderRadius: "10px",
+                        border: "none",
+                    }} spacing={2}>
+                        <Alert variant="filled" severity={finalizarEditarPaciente} sx={{
+                            width: "100%",
+                            height: "100%",
+                            fontSize: "1.8rem",
+                            fontFamily: "Nunito sans-serif",
+                            display: "flex",
+                            alignItems: "center",
+                            border: "none"
+                        }}>
                             {finalizarEditarPaciente === 'success' ? 'Atualização concluida com sucesso!' : "Erro na atualização!"}
+                        </Alert>
+                    </Stack>
+                </div>
+            )}
+            {finalizarCadastroExame && (
+                <div className="alert-CB">
+                    <Stack sx={{
+                        width: '21%',
+                        boxShadow: `1px 1px 5px black `,
+                        borderRadius: "10px",
+                        border: "none",
+                    }} spacing={2}>
+                        <Alert variant="filled" severity={finalizarCadastroExame} sx={{
+                            width: "100%",
+                            height: "100%",
+                            fontSize: "1.8rem",
+                            fontFamily: "Nunito sans-serif",
+                            display: "flex",
+                            alignItems: "center",
+                            border: "none"
+                        }}>
+                            {finalizarCadastroExame === 'success' ? 'Exame cadastrado com sucesso!' : "Erro na extração de dados!"}
                         </Alert>
                     </Stack>
                 </div>

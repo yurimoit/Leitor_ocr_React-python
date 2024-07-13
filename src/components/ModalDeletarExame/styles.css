@@ -50,6 +50,20 @@
     display: flex;
 }
 
+.deletar-buttonSair-img button {
+    color: black;
+    background-color: rgba(181, 49, 49, 0);
+
+    transition: 0.2s;
+
+    border: none;
+}
+
+.deletar-buttonSair-img button:hover {
+    color: red;
+    transform: scale(1.04);
+}
+
 .deletarCobranca-img {
     width: 88%;
     height: 200px;

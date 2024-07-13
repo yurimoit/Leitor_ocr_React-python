@@ -102,7 +102,6 @@ export function ModalEditarExame({ setCloseModalEditar, idDetalharExame, exame, 
         verificaCampo()
     }
 
-    console.log(detalhesExame);
 
     function clearInput() {
         if (detalhesExame) {
@@ -158,12 +157,12 @@ export function ModalEditarExame({ setCloseModalEditar, idDetalharExame, exame, 
                 document.getElementById('nome-exame').style.color = '#05114c'
             }
 
-            if (obs === "") {
-                document.getElementById('textoArea').style.border = '2px solid red'
-                verifica = false
-            } else {
-                document.getElementById('textoArea').style.border = 'none'
-            }
+            // if (obs === "") {
+            //     document.getElementById('textoArea').style.border = '2px solid red'
+            //     verifica = false
+            // } else {
+            //     document.getElementById('textoArea').style.border = 'none'
+            // }
         }
 
         return verifica

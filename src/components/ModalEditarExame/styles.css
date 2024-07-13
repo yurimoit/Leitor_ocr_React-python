@@ -404,12 +404,14 @@
     position: absolute;
     height: 55px;
     width: 130%;
-    bottom: 25px;
+    top: 10%;
     right: 103px;
 
     z-index: 1 !important;
     display: flex;
     justify-content: flex-end;
+    border: none;
+
 }
 
 

@@ -4,6 +4,7 @@ import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import PolylineIcon from '@mui/icons-material/Polyline';
 import { useNavigate } from 'react-router-dom';
+import DownloadButton from '../DownloadButton';
 
 
 export default function SideBar({
@@ -85,6 +86,11 @@ export default function SideBar({
                 <button onClick={() => selectButton(4)} style={{ backgroundColor: `${isPageDashBoard ? "#fff" : "#000"}` }} className='sidebar-button'>
                     <LeaderboardIcon sx={{ color: `${isPageDashBoard ? "#052747" : "#fff"}`, width: '80%', height: '40px' }} />
                     <h1 style={{ color: `${isPageDashBoard ? "#052747" : "#fff"}` }}>DashBoard</h1>
+                </button>
+                <button onClick={() => selectButton(4)} style={{ backgroundColor: `${isPageDashBoard ? "#fff" : "#000"}` }} className='sidebar-button'>
+                    <LeaderboardIcon sx={{ color: `${isPageDashBoard ? "#052747" : "#fff"}`, width: '80%', height: '40px' }} />
+                    <DownloadButton />
+                    <h1 style={{ color: `${isPageDashBoard ? "#052747" : "#fff"}` }}>Relatório</h1>
                 </button>
             </div>
         </nav>

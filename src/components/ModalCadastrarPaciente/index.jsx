@@ -216,7 +216,7 @@ export default function ModalCadastrarPaciente({ setOpenModalCDPT, openModalCDPT
                                 <h1>Cadastrar de paciente</h1>
                             </div>
                             <button type="button" onClick={() => setOpenModalCDPT(false)}>
-                                <CloseIcon sx={{ width: '100%', height: '100%', color: 'black' }} />
+                                <CloseIcon sx={{ width: '100%', height: '100%' }} />
                             </button>
                         </div>
 

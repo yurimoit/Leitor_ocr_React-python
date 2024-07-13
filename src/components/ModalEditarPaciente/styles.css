@@ -79,8 +79,14 @@
     border: none;
 
     background-color: #ffffff00;
+    transition: 0.2s;
+    color: black;
 
+}
 
+.titulo-cadastrar-paciente button:hover {
+    color: red;
+    transform: scale(1.04);
 
 }
 

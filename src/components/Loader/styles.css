@@ -1,6 +1,6 @@
 .loader {
-    width: 500px;
-    height: 400px;
+    width: 650px;
+    height: 450px;
 
     display: flex;
     justify-content: center;
@@ -15,18 +15,18 @@
     justify-content: center;
     align-items: center;
     position: relative;
-    width: 10em;
-    height: 10em;
+    width: 15em;
+    height: 15em;
     border-radius: 50%;
-    box-shadow: 0.5em 1em 1em rgb(0, 32, 10),
-        -0.5em 0.5em 1em rgb(41, 159, 6),
-        0.5em -0.5em 1em rgb(1, 61, 12),
-        -0.5em -0.5em 1em rgb(60, 204, 3);
+    box-shadow: 0.5em 1em 1em rgb(200, 200, 200),
+        -0.5em 0.5em 1em white,
+        0.5em -0.5em 1em rgb(200, 200, 200),
+        -0.5em -0.5em 1em white;
 }
 
 .external-shadow {
-    width: 10em;
-    height: 10em;
+    width: 15em;
+    height: 15em;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -37,7 +37,7 @@
         0.5em -0.5em 3em purple,
         -0.5em -0.5em 3em cyan;
     z-index: 999;
-    animation: rotate 3s linear infinite;
+    animation: rotate 2s linear infinite;
     background-color: #212121;
 }
 
@@ -49,7 +49,9 @@
 
 .intern::before {
     content: "100%";
-    animation: percent 2s ease-in-out infinite;
+    animation: percent 10s ease-in-out infinite;
+
+    font-size: 1.6rem;
 }
 
 @keyframes rotate {

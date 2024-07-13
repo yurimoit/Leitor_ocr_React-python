@@ -124,6 +124,11 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
 
 
     async function buscarPacientes() {
+
+        if (!Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27'))) {
+            return
+        }
+
         try {
             const response = await api.get('/buscar/pacientes',
                 {
@@ -258,7 +263,7 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
                     />)}
                     {isPageDashBoard && (
                         <DashBoard
-                            idPaciente={idPaciente}
+                            isPageDashBoard={isPageDashBoard}
                         />
                     )}
 
@@ -344,8 +349,21 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
 
                     {finalizarCDPaciente && (
                         <div className="alert-CB">
-                            <Stack sx={{ width: '21%', boxShadow: `0px 4px 42px 0px #00000033 `, borderRadius: "10px" }} spacing={2}>
-                                <Alert variant="filled" severity={finalizarCDPaciente}>
+                            <Stack sx={{
+                                width: '21%',
+                                boxShadow: `1px 1px 5px black `,
+                                borderRadius: "10px",
+                                border: "none"
+                            }} spacing={2}>
+                                <Alert variant="filled" severity={finalizarCDPaciente} sx={{
+                                    width: "100%",
+                                    height: "100%",
+                                    fontSize: "1.8rem",
+                                    fontFamily: "Nunito sans-serif",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    border: "none"
+                                }}>
                                     {finalizarCDPaciente === 'success' ? 'Cadastrado com sucesso!' : "Erro no cadastro!"}
                                 </Alert>
                             </Stack>
@@ -354,8 +372,21 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
 
                     {finalizarEditarPaciente && (
                         <div className="alert-CB">
-                            <Stack sx={{ width: '21%', boxShadow: `0px 4px 42px 0px #00000033 `, borderRadius: "10px" }} spacing={2}>
-                                <Alert variant="filled" severity={finalizarEditarPaciente}>
+                            <Stack sx={{
+                                width: '21%',
+                                boxShadow: `1px 1px 5px black `,
+                                borderRadius: "10px",
+                                border: "none"
+                            }} spacing={2}>
+                                <Alert variant="filled" severity={finalizarEditarPaciente} sx={{
+                                    width: "100%",
+                                    height: "100%",
+                                    fontSize: "1.8rem",
+                                    fontFamily: "Nunito sans-serif",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    border: "none"
+                                }}>
                                     {finalizarEditarPaciente === 'success' ? 'Atualização concluida com sucesso!' : "Erro na atualização!"}
                                 </Alert>
                             </Stack>
@@ -364,8 +395,21 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
 
                     {finalizarExcluirPaciente && (
                         <div className="alert-CB">
-                            <Stack sx={{ width: '21%', boxShadow: `0px 4px 42px 0px #00000033 `, borderRadius: "10px" }} spacing={2}>
-                                <Alert variant="filled" severity={finalizarExcluirPaciente}>
+                            <Stack sx={{
+                                width: '21%',
+                                boxShadow: `1px 1px 5px black `,
+                                borderRadius: "10px",
+                                border: "none"
+                            }} spacing={2}>
+                                <Alert variant="filled" severity={finalizarExcluirPaciente} sx={{
+                                    width: "100%",
+                                    height: "100%",
+                                    fontSize: "1.8rem",
+                                    fontFamily: "Nunito sans-serif",
+                                    display: "flex",
+                                    alignItems: "center",
+                                    border: "none"
+                                }}>
                                     {finalizarExcluirPaciente === 'success' ? 'Exclusão concluida com sucesso!' : "Erro na exclusão!"}
                                 </Alert>
                             </Stack>

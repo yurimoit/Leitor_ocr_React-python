@@ -60,25 +60,15 @@ export default function ModalEditarPaciente({ setOpenModalEditarPT, openModalEdi
     }, [idPaciente, dadosPaciente])
 
 
-    function formataData(d) {
-        if (d) {
-            var dataString = d;
+    function formataData(dateString) {
 
-            // Converter a string para um objeto Date
-            var data = new Date(dataString);
+        dateString = String(dateString)
+        const date = new Date(dateString);
+        const year = date.getUTCFullYear();
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
 
-            // Obter ano, mês e dia
-            var ano = data.getFullYear();
-            var mes = ("0" + (data.getMonth() + 1)).slice(-2); // Adiciona um zero à esquerda, se necessário
-            var dia = ("0" + (data.getDate() + 1)).slice(-2); // Adiciona um zero à esquerda, se necessário
-
-            // Formatar a data no formato ano-mes-dia
-            var dataFormatada = ano + "-" + mes + "-" + dia;
-
-            return dataFormatada
-        }
-
-        return "Sem data"
+        return `${year}-${month}-${day}`;
     }
 
 
@@ -265,7 +255,7 @@ export default function ModalEditarPaciente({ setOpenModalEditarPT, openModalEdi
                                 <h1>Editar dados</h1>
                             </div>
                             <button type="button" onClick={() => setOpenModalEditarPT(false)}>
-                                <CloseIcon sx={{ width: '100%', height: '100%', color: 'black' }} />
+                                <CloseIcon sx={{ width: '100%', height: '100%' }} />
                             </button>
                         </div>
 

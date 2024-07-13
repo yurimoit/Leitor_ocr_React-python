@@ -6,11 +6,15 @@ import SearchIcon from '@mui/icons-material/Search';
 import TuneIcon from '@mui/icons-material/Tune';
 import './styles.css'
 import api from '../../services/api'
+import ButtonsGrafico from './componenteButtons';
+import ChartComponentValues from '../grafico/componenteGrafico';
+import toast from 'react-hot-toast';
 
 
-export default function DashBoard({ idPaciente }) {
+export default function DashBoard({ isPageDashBoard }) {
 
     const [listaResultadosDados, setListaResultadosDados] = useState({})
+    const [listaRelatorio, setListaRelatorio] = useState({})
     const [currentPage, setCurrentPage] = useState(1);
 
     const [listaTextoLeocograma,
@@ -117,20 +121,42 @@ export default function DashBoard({ idPaciente }) {
         (também chamado de basofilia).
 
         Basopenia: refere-se à redução do número de basófilos no sangue.`
-        }, {
-            name: 'plaquetas',
-            text: `As plaquetas são fragmentos de células responsáveis pelo 
-        início do processo de coagulação. Quando um tecido de qualquer 
-        vaso sanguíneo é lesado, o organismo rapidamente encaminha as 
-        plaquetas ao local da lesão. As plaquetas se agrupam e formam um 
-        trombo, uma espécie de rolha ou tampão, que imediatamente estanca 
-        o sangramento. Graças à ação das plaquetas, o organismo tem tempo 
-        de reparar os tecidos lesados sem haver muita perda de sangue.
-
-        O valor normal das plaquetas varia entre 150.000 a 450.000 por 
-        microlitro (uL). Porém, até valores próximos de 50.000, 
-        o organismo não apresenta dificuldades em iniciar a coagulação.`
         }])
+
+    const [listaTextoEritogrma,
+        // eslint-disable-next-line
+        setListaTextoEritogrma] = useState([{
+            nome: 'hemacias',
+            texto: `Se por um lado a falta de hemácias prejudica o transporte de oxigênio,
+                                por outro, células vermelhas em excesso deixam o sangue muito espesso,
+                                atrapalhando seu fluxo e favorecendo a formação de coágulos.`
+        }, {
+            nome: 'hematocrito',
+            texto: `O hematócrito é o percentual do sangue ocupado pelas hemácias.
+                                Um hematócrito de 45% significa que 45% do sangue é composto por hemácias.
+                                Os outros 55% são basicamente água e todas as outras substâncias diluídas.
+                                Pode-se notar, portanto, que praticamente metade do nosso sangue é composto por células vermelhas.`
+        }, {
+            nome: 'hemoglobina',
+            texto: `A hemoglobina é uma molécula que fica dentro da hemácia.
+                                É a responsável pelo transporte de oxigênio. Na prática,
+                                a dosagem de hemoglobina acaba sendo a mais precisa na avaliação de uma anemia.`
+        },
+        {
+            nome: 'plaquetas',
+            texto: `As plaquetas são fragmentos de células responsáveis pelo 
+                    início do processo de coagulação. Quando um tecido de qualquer 
+                    vaso sanguíneo é lesado, o organismo rapidamente encaminha as 
+                    plaquetas ao local da lesão. As plaquetas se agrupam e formam um 
+                    trombo, uma espécie de rolha ou tampão, que imediatamente estanca 
+                    o sangramento. Graças à ação das plaquetas, o organismo tem tempo 
+                    de reparar os tecidos lesados sem haver muita perda de sangue.
+
+                    O valor normal das plaquetas varia entre 150.000 a 450.000 por 
+                    microlitro (uL). Porém, até valores próximos de 50.000, 
+                    o organismo não apresenta dificuldades em iniciar a coagulação.`
+        }
+        ])
 
     const [listaTextoIndicesEritogrma,
         // eslint-disable-next-line
@@ -188,9 +214,53 @@ export default function DashBoard({ idPaciente }) {
     const [corVCM, setCorVCM] = useState(false)
     const [corHCMECHCM, setCorHCMECHCM] = useState(false)
 
+    const [corHemacia, setCorHemacia] = useState(true)
+    const [corHemacocrito, setCorHemacocrito] = useState(false)
+    const [corHemoglobina, setCorHemoglobina] = useState(false)
+    const [corPlaqueta, setCorPlaqueta] = useState(false)
+
     const [textoIndicesEritograma, setTextoIndicesEritograma] = useState('')
+    const [textoEritograma, setTextoEritograma] = useState('')
 
     const [nomeExameIndicesGraficos, setNomeExameIndicesGraficos] = useState('RDW')
+    const [nomeExameEritogramaGraficos, setNomeExameEritogramaGraficos] = useState('Hemácias')
+    const [nomeExameGrafico, setNomeExameGrafico] = useState('leucocitos - global')
+
+    function trocaListaEritograma(newAlignment) {
+        if (newAlignment === 'hemacias') {
+            setCorHemacia(true)
+            setCorHemacocrito(false)
+            setCorHemoglobina(false)
+            setCorPlaqueta(false)
+            setNomeExameEritogramaGraficos(newAlignment)
+            setTextoEritograma(listaTextoEritogrma[0].texto)
+
+        }
+        if (newAlignment === 'hematocrito') {
+            setCorHemacia(false)
+            setCorHemacocrito(true)
+            setCorHemoglobina(false)
+            setCorPlaqueta(false)
+            setNomeExameEritogramaGraficos(newAlignment)
+            setTextoEritograma(listaTextoEritogrma[1].texto)
+        }
+        if (newAlignment === 'hemoglobina') {
+            setCorHemacia(false)
+            setCorHemacocrito(false)
+            setCorHemoglobina(true)
+            setCorPlaqueta(false)
+            setNomeExameEritogramaGraficos(newAlignment)
+            setTextoEritograma(listaTextoEritogrma[2].texto)
+        }
+        if (newAlignment === 'plaquetas') {
+            setCorHemacia(false)
+            setCorHemacocrito(false)
+            setCorHemoglobina(false)
+            setCorPlaqueta(true)
+            setNomeExameEritogramaGraficos(newAlignment)
+            setTextoEritograma(listaTextoEritogrma[3].texto)
+        }
+    }
 
     function trocaListaIndicesEritograma(newAlignment) {
         if (newAlignment === 'rdw') {
@@ -224,10 +294,9 @@ export default function DashBoard({ idPaciente }) {
     const [corMN, setCorMN] = useState(false)
     const [corES, setCorES] = useState(false)
     const [corBS, setCorBS] = useState(false)
-    const [corPT, setCorPT] = useState(false)
 
+    const [corBarLine, setCorBarLine] = useState(false)
 
-    const [nomeExameGrafico, setNomeExameGrafico] = useState('leucocitos - global')
 
     function trocaCorLista(newAlignment) {
         if (newAlignment === 'leucocitos - global') {
@@ -238,7 +307,6 @@ export default function DashBoard({ idPaciente }) {
             setCorMN(false)
             setCorNB(false)
             setCorNS(false)
-            setCorPT(false)
             setNomeExameGrafico(newAlignment)
             setTextoLeocograma(listaTextoLeocograma[0].text)
         }
@@ -250,7 +318,6 @@ export default function DashBoard({ idPaciente }) {
             setCorMN(false)
             setCorNB(true)
             setCorNS(false)
-            setCorPT(false)
             setNomeExameGrafico(newAlignment)
             setTextoLeocograma(listaTextoLeocograma[1].text)
         }
@@ -262,7 +329,6 @@ export default function DashBoard({ idPaciente }) {
             setCorMN(false)
             setCorNB(false)
             setCorNS(true)
-            setCorPT(false)
             setNomeExameGrafico(newAlignment)
             setTextoLeocograma(listaTextoLeocograma[2].text)
         }
@@ -274,7 +340,6 @@ export default function DashBoard({ idPaciente }) {
             setCorMN(false)
             setCorNB(false)
             setCorNS(false)
-            setCorPT(false)
             setNomeExameGrafico(newAlignment)
             setTextoLeocograma(listaTextoLeocograma[3].text)
         }
@@ -286,7 +351,6 @@ export default function DashBoard({ idPaciente }) {
             setCorMN(true)
             setCorNB(false)
             setCorNS(false)
-            setCorPT(false)
             setNomeExameGrafico(newAlignment)
             setTextoLeocograma(listaTextoLeocograma[4].text)
         }
@@ -298,7 +362,6 @@ export default function DashBoard({ idPaciente }) {
             setCorMN(false)
             setCorNB(false)
             setCorNS(false)
-            setCorPT(false)
             setNomeExameGrafico(newAlignment)
             setTextoLeocograma(listaTextoLeocograma[5].text)
         }
@@ -310,21 +373,8 @@ export default function DashBoard({ idPaciente }) {
             setCorMN(false)
             setCorNB(false)
             setCorNS(false)
-            setCorPT(false)
             setNomeExameGrafico(newAlignment)
             setTextoLeocograma(listaTextoLeocograma[6].text)
-        }
-        if (newAlignment === 'plaquetas') {
-            setCorLG(false)
-            setCorBS(false)
-            setCorES(false)
-            setCorLI(false)
-            setCorMN(false)
-            setCorNB(false)
-            setCorNS(false)
-            setCorPT(true)
-            setNomeExameGrafico(newAlignment)
-            setTextoLeocograma(listaTextoLeocograma[7].text)
         }
     }
 
@@ -355,20 +405,57 @@ export default function DashBoard({ idPaciente }) {
                 )
 
                 if (response && response.data) {
-                    // console.log(response.data);
                     setListaResultadosDados(response.data)
                 }
             }
         } catch (error) {
-            console.log(error);
+            toast.error("Error no servido 500")
+        }
+    }
+
+    async function buscarRelatorio() {
+        try {
+            if (!Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27'))) {
+                const response = await api.get(`/getBanco/relatorio?id=${null}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                        }
+                    }
+                )
+
+                if (response && response.data) {
+                    console.log(response.data);
+                    setListaRelatorio(response.data[9])
+                }
+            } else if (localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')) {
+                const response = await api.get(`/getBanco/relatorio?id=${localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                        }
+                    }
+                )
+
+                if (response && response.data) {
+                    console.log(response.data);
+                    setListaRelatorio(response.data[9])
+                }
+            }
+        } catch (error) {
+            toast.error("Error no servido 500")
         }
     }
 
     useEffect(() => {
         buscarExames()
+        buscarRelatorio()
+        trocaListaEritograma('hemacias')
+        trocaListaIndicesEritograma('rdw')
+
     },
         // eslint-disable-next-line 
-        [])
+        [isPageDashBoard])
 
 
 
@@ -412,83 +499,81 @@ export default function DashBoard({ idPaciente }) {
             </nav>
             <div className='graficos'>
                 {currentPage === 1 && (listaResultadosDados) && (
-                    <>
-                        <ChartComponent
-                            dataDados={listaResultadosDados ? listaResultadosDados.hemacias : [0, 0]}
-                            line={false}
-                            name={listaResultadosDados ? 'Hemacias' : 'indisponivel'}
-                        />
-                        <ChartComponent
-                            dataDados={listaResultadosDados ? listaResultadosDados.hematocrito : [0, 0]}
-                            line={true}
-                            name={listaResultadosDados ? 'Hematocrito' : 'indisponivel'}
-                        />
-                        <ChartComponent
-                            dataDados={listaResultadosDados ? listaResultadosDados.hemoglobina : [0, 0]}
-                            line={true}
-                            name={listaResultadosDados ? 'Hemoglobina' : 'indisponivel'}
-                        />
-                        <div className='texto-eritrograma'>
-                            <br />
-                            <h2>Eritrograma: </h2>
-                            <hr></hr>
-                            <br />
-                            <p>
-                                O eritrograma é a primeira parte do hemograma. É o estudo dos eritrócitos, que também podem ser chamados hemácias,
-                                glóbulos vermelhos ou células vermelhas.
-                                É através da avaliação do eritrograma que podemos saber se um paciente tem anemia.
-                            </p>
-                            <br />
-                            <h2>Hematócrito e hemoglobina :</h2>
-                            <hr></hr>
-                            <br />
-                            <p>
+                    <div className='graficos-page-3'>
+                        <nav className='lista-page-3'>
+                            <ButtonsGrafico
+                                corBarLine={corBarLine}
+                                setCorBarLine={setCorBarLine}
+                            />
+                            <nav className='lista-page-3-buttons'>
+                                <button onClick={() => trocaListaEritograma('hemacias')} style={{ color: `${corHemacia ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corHemacia ? "rgb(25, 38, 52)" : "#fff"}`, borderRadius: '5px 0px 0px 5px' }} value="Hemacias">Hemacias</button>
+                                <button onClick={() => trocaListaEritograma('hematocrito')} style={{ color: `${corHemacocrito ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corHemacocrito ? "rgb(25, 38, 52)" : "#fff"}` }} value="Hematocrito">Hematocrito</button>
+                                <button onClick={() => trocaListaEritograma("hemoglobina")} style={{ color: `${corHemoglobina ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corHemoglobina ? "rgb(25, 38, 52)" : "#fff"}` }} value="Hemoglobina">Hemoglobina</button>
+                                <button onClick={() => trocaListaEritograma('plaquetas')} style={{ color: `${corPlaqueta ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corPlaqueta ? "rgb(25, 38, 52)" : "#fff"}`, borderRadius: '0px 5px 5px 0px', borderRight: '1px solid lightgray' }} value="Plaquetas">Plaquetas</button>
+                            </nav>
+                        </nav>
+                        <div className='texto-grafico-eritograma'>
+                            <section className='grafico-eritograma'>
+                                <ChartComponent
+                                    dataDados={listaResultadosDados ? listaResultadosDados[`${nomeExameEritogramaGraficos ? nomeExameEritogramaGraficos : "hemacias"}`] : [0, 0]}
+                                    line={corBarLine}
+                                    name={listaResultadosDados ? `${nomeExameEritogramaGraficos ? capitalize(nomeExameEritogramaGraficos) : "Hemácias"}` : 'indisponivel'}
+                                />
+                                <ChartComponentValues
+                                    dataDados={listaRelatorio ? listaRelatorio[`${nomeExameEritogramaGraficos ? nomeExameEritogramaGraficos : "hemacias"}`] : [0, 0]}
+                                    line={corBarLine}
+                                    name={"Estatísticas"}
+                                />
+                            </section>
+
+                            <article className='texto-indices-eritograma'>
+                                <br></br>
+                                {nomeExameEritogramaGraficos && nomeExameEritogramaGraficos !== 'hemacias' && (<h2>{listaResultadosDados ? `${nomeExameEritogramaGraficos !== 'hemacias' ? capitalize(nomeExameEritogramaGraficos) : "Hemacias"} ` : 'indisponivel'} :</h2>)}
+                                {nomeExameEritogramaGraficos && nomeExameEritogramaGraficos === 'hemacias' && (<h2>{listaResultadosDados ? `${nomeExameEritogramaGraficos === 'hemacias' ? 'Hemácias' : "Hematocrito"} ` : 'indisponivel'} :</h2>)}
+                                <br></br>
+                                <p>
+                                    {textoEritograma ? textoEritograma : `
                                 Os três primeiros dados, contagem de hemácias, hemoglobina e hematócrito, são analisados em conjunto. Quando estão reduzidos,
                                 indicam anemia, isto é, baixo número de glóbulos vermelhos no sangue. Quando estão elevados indicam policitemia,
                                 que é o excesso de hemácias circulantes.
-                                <br />
-                                O hematócrito é o percentual do sangue ocupado pelas hemácias.
-                                Um hematócrito de 45% significa que 45% do sangue é composto por hemácias.
-                                Os outros 55% são basicamente água e todas as outras substâncias diluídas.
-                                Pode-se notar, portanto, que praticamente metade do nosso sangue é composto por células vermelhas.
-                                <br />
-                                Se por um lado a falta de hemácias prejudica o transporte de oxigênio,
-                                por outro, células vermelhas em excesso deixam o sangue muito espesso,
-                                atrapalhando seu fluxo e favorecendo a formação de coágulos.
-                                <br />
-                                A hemoglobina é uma molécula que fica dentro da hemácia.
-                                É a responsável pelo transporte de oxigênio. Na prática,
-                                a dosagem de hemoglobina acaba sendo a mais precisa na avaliação de uma anemia.
-                            </p>
-                            <br />
+                                `}
+                                </p>
+                                <br></br>
+                            </article>
                         </div>
-                    </>
+                    </div>
                 )}
                 {currentPage === 2 && (listaResultadosDados) && (
                     <div className='graficos-page-3'>
                         <nav className='lista-page-3'>
-                            <button onClick={() => trocaListaIndicesEritograma('rdw')} style={{ color: `${corRDW ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corRDW ? "rgb(25, 38, 52)" : "#fff"}`, borderRadius: '5px 0px 0px 5px' }} value="Leucocitos">RDW</button>
-                            <button onClick={() => trocaListaIndicesEritograma('vcm')} style={{ color: `${corVCM ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corVCM ? "rgb(25, 38, 52)" : "#fff"}` }} value="Bastonetes">VCM</button>
-                            <button onClick={() => trocaListaIndicesEritograma("hcm")} style={{ color: `${corHCMECHCM ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corHCMECHCM ? "rgb(25, 38, 52)" : "#fff"}`, borderRadius: '0px 5px 5px 0px', borderRight: '1px solid lightgray' }} value="Segmentados">HCM & CHCM</button>
+                            <ButtonsGrafico
+                                corBarLine={corBarLine}
+                                setCorBarLine={setCorBarLine}
+                            />
+                            <nav className='lista-page-3-buttons'>
+                                <button onClick={() => trocaListaIndicesEritograma('rdw')} style={{ color: `${corRDW ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corRDW ? "rgb(25, 38, 52)" : "#fff"}`, borderRadius: '5px 0px 0px 5px' }} value="RDW">RDW</button>
+                                <button onClick={() => trocaListaIndicesEritograma('vcm')} style={{ color: `${corVCM ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corVCM ? "rgb(25, 38, 52)" : "#fff"}` }} value="VCM">VCM</button>
+                                <button onClick={() => trocaListaIndicesEritograma("hcm")} style={{ color: `${corHCMECHCM ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corHCMECHCM ? "rgb(25, 38, 52)" : "#fff"}`, borderRadius: '0px 5px 5px 0px', borderRight: '1px solid lightgray' }} value="HCM & CHCM">HCM & CHCM</button>
+                            </nav>
                         </nav>
                         <div className='page-3-grafico'>
-
-                            <div className='page-3-indice-eritograma'>
+                            <section className='grafico-eritograma'>
                                 <ChartComponent
                                     dataDados={listaResultadosDados ? listaResultadosDados[`${nomeExameIndicesGraficos ? nomeExameIndicesGraficos : "rdw"}`] : [0, 0]}
-                                    line={true}
+                                    line={corBarLine}
+                                    optionsValuesCHCM={nomeExameIndicesGraficos === 'hcm' ? listaResultadosDados["chcm"] : null}
                                     name={listaResultadosDados ? `${nomeExameIndicesGraficos ? capitalize(nomeExameIndicesGraficos) : "RDW"}` : 'indisponivel'}
                                 />
-                                {nomeExameIndicesGraficos === 'hcm' ? (
-                                    <ChartComponent
-                                        dataDados={listaResultadosDados ? listaResultadosDados[`${nomeExameIndicesGraficos ? 'chcm' : "rdw"}`] : [0, 0]}
-                                        line={true}
-                                        name={listaResultadosDados ? `${nomeExameIndicesGraficos ? "Chcm" : "RDW"}` : 'indisponivel'}
-                                    />
-                                ) : ""}
-                            </div>
 
-                            <div className='texto-indices-eritograma'>
+                                <ChartComponentValues
+                                    dataDados={listaRelatorio ? listaRelatorio[`${nomeExameIndicesGraficos ? nomeExameIndicesGraficos : "rdw"}`] : [0, 0]}
+                                    optionsValuesCHCM={nomeExameIndicesGraficos === 'hcm' ? listaRelatorio["chcm"] : null}
+                                    line={corBarLine}
+                                    name={"Estatísticas"}
+                                />
+                            </section>
+
+                            <article className='texto-indices-eritograma'>
                                 <br></br>
                                 {nomeExameIndicesGraficos && nomeExameIndicesGraficos !== 'hcm' && (<h2>{listaResultadosDados ? `${nomeExameIndicesGraficos !== 'hcm' ? capitalize(nomeExameIndicesGraficos) : "RDW"} ` : 'indisponivel'} :</h2>)}
                                 {nomeExameIndicesGraficos && nomeExameIndicesGraficos === 'hcm' && (<h2>{listaResultadosDados ? `${nomeExameIndicesGraficos === 'hcm' ? 'Hcm & Chcm' : "RDW"} ` : 'indisponivel'} :</h2>)}
@@ -503,7 +588,7 @@ export default function DashBoard({ idPaciente }) {
                                 `}
                                 </p>
                                 <br></br>
-                            </div>
+                            </article>
                         </div>
                     </div>
 
@@ -511,23 +596,35 @@ export default function DashBoard({ idPaciente }) {
                 {currentPage === 3 && (listaResultadosDados) && (
                     <div className='graficos-page-3'>
                         <nav className='lista-page-3'>
-                            <button onClick={() => trocaCorLista('leucocitos - global')} style={{ color: `${corLG ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corLG ? "rgb(25, 38, 52)" : "#fff"}`, borderRadius: '5px 0px 0px 5px' }} value="Leucocitos">Leucocitos</button>
-                            <button onClick={() => trocaCorLista('neutrofilos bastonetes')} style={{ color: `${corNB ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corNB ? "rgb(25, 38, 52)" : "#fff"}` }} value="Bastonetes">N. Bastonetes</button>
-                            <button onClick={() => trocaCorLista("neutrofilos segmentados")} style={{ color: `${corNS ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corNS ? "rgb(25, 38, 52)" : "#fff"}` }} value="Segmentados">N. Segmentados</button>
-                            <button onClick={() => trocaCorLista('linfocitos')} style={{ color: `${corLI ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corLI ? "rgb(25, 38, 52)" : "#fff"}` }} value="Linfocitos">Linfocitos</button>
-                            <button onClick={() => trocaCorLista('monocitos')} style={{ color: `${corMN ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corMN ? "rgb(25, 38, 52)" : "#fff"}` }} value="Monocitos">Monocitos</button>
-                            <button onClick={() => trocaCorLista("eosinofilos")} style={{ color: `${corES ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corES ? "rgb(25, 38, 52)" : "#fff"}` }} value="Eosinofilos">Eosinofilos</button>
-                            <button onClick={() => trocaCorLista('basafilos')} style={{ color: `${corBS ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corBS ? "rgb(25, 38, 52)" : "#fff"}` }} value="Basafilos">Basofilos</button>
-                            <button onClick={() => trocaCorLista('plaquetas')} style={{ color: `${corPT ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corPT ? "rgb(25, 38, 52)" : "#fff"}`, borderRadius: '0px 5px 5px 0px', borderRight: '1px solid lightgray' }} value="Plaquetas">Plaquetas</button>
+                            <ButtonsGrafico
+                                corBarLine={corBarLine}
+                                setCorBarLine={setCorBarLine}
+                            />
+                            <nav className='lista-page-3-buttons'>
+                                <button onClick={() => trocaCorLista('leucocitos - global')} style={{ color: `${corLG ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corLG ? "rgb(25, 38, 52)" : "#fff"}`, borderRadius: '5px 0px 0px 5px' }} value="Leucocitos">Leucocitos</button>
+                                <button onClick={() => trocaCorLista('neutrofilos bastonetes')} style={{ color: `${corNB ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corNB ? "rgb(25, 38, 52)" : "#fff"}` }} value="Bastonetes">N. Bastonetes</button>
+                                <button onClick={() => trocaCorLista("neutrofilos segmentados")} style={{ color: `${corNS ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corNS ? "rgb(25, 38, 52)" : "#fff"}` }} value="Segmentados">N. Segmentados</button>
+                                <button onClick={() => trocaCorLista('linfocitos')} style={{ color: `${corLI ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corLI ? "rgb(25, 38, 52)" : "#fff"}` }} value="Linfocitos">Linfocitos</button>
+                                <button onClick={() => trocaCorLista('monocitos')} style={{ color: `${corMN ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corMN ? "rgb(25, 38, 52)" : "#fff"}` }} value="Monocitos">Monocitos</button>
+                                <button onClick={() => trocaCorLista("eosinofilos")} style={{ color: `${corES ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corES ? "rgb(25, 38, 52)" : "#fff"}` }} value="Eosinofilos">Eosinofilos</button>
+                                <button onClick={() => trocaCorLista('basafilos')} style={{ color: `${corBS ? "#fff" : "rgb(25, 38, 52)"}`, backgroundColor: `${corBS ? "rgb(25, 38, 52)" : "#fff"}`, borderRadius: '0px 5px 5px 0px', borderRight: '1px solid lightgray' }} value="Basafilos">Basofilos</button>
+                            </nav>
                         </nav>
                         <div className='page-3-grafico'>
 
-                            <ChartComponent
-                                dataDados={listaResultadosDados ? listaResultadosDados[`${nomeExameGrafico ? nomeExameGrafico : "Leucocitos - global"}`] : [0, 0]}
-                                line={true}
-                                name={listaResultadosDados ? `${nomeExameGrafico ? capitalize(nomeExameGrafico) : "Leucocitos - global"}` : 'indisponivel'}
-                            />
-                            <div className='texto-leucograma'>
+                            <section className='grafico-eritograma'>
+                                <ChartComponent
+                                    dataDados={listaResultadosDados ? listaResultadosDados[`${nomeExameGrafico ? nomeExameGrafico : "Leucocitos - global"}`] : [0, 0]}
+                                    line={corBarLine}
+                                    name={listaResultadosDados ? `${nomeExameGrafico ? capitalize(nomeExameGrafico) : "Leucocitos - global"}` : 'indisponivel'}
+                                />
+                                <ChartComponentValues
+                                    dataDados={listaRelatorio ? listaRelatorio[`${nomeExameGrafico ? nomeExameGrafico : "Leucocitos - global"}`] : [0, 0]}
+                                    line={corBarLine}
+                                    name={"Estatísticas"}
+                                />
+                            </section>
+                            <article className='texto-leucograma'>
                                 <br></br>
                                 <h2>{listaResultadosDados ? `${nomeExameGrafico ? capitalize(nomeExameGrafico) : "Leucocitos - global"}` : 'indisponivel'}</h2>
                                 <br></br>
@@ -543,7 +640,7 @@ export default function DashBoard({ idPaciente }) {
                                        `}
                                 </p>
                                 <br></br>
-                            </div>
+                            </article>
 
                         </div>
                     </div>

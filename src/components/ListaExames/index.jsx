@@ -39,25 +39,15 @@ export default function ListaExames({ idPaciente }) {
 
 
 
-    function formataData(d) {
-        if (d) {
-            var dataString = d;
+    function formataData(dateString) {
 
-            // Converter a string para um objeto Date
-            var data = new Date(dataString);
+        dateString = String(dateString)
+        const date = new Date(dateString);
+        const year = date.getUTCFullYear();
+        const month = String(date.getUTCMonth() + 1).padStart(2, '0');
+        const day = String(date.getUTCDate()).padStart(2, '0');
 
-            // Obter ano, mês e dia
-            var ano = data.getFullYear();
-            var mes = ("0" + (data.getMonth() + 1)).slice(-2); // Adiciona um zero à esquerda, se necessário
-            var dia = ("0" + (data.getDate() + 1)).slice(-2); // Adiciona um zero à esquerda, se necessário
-
-            // Formatar a data no formato ano-mes-dia
-            var dataFormatada = ano + "-" + mes + "-" + dia;
-
-            return dataFormatada
-        }
-
-        return "Sem data"
+        return `${year}-${month}-${day}`;
     }
 
 
@@ -277,10 +267,10 @@ export default function ListaExames({ idPaciente }) {
                                         <li className='li-staus-paciente-lista-exames-usuario' >{formataData(item.data_exame) ? `${formataData(item.data_exame).slice(8)}/${formataData(item.data_exame).slice(5, 7)}/${formataData(item.data_exame).slice(0, 4)}` : 'Sem data'}</li>
                                         <li className='li-button-opcoes-lista-exames-usuario'>
                                             <button onClick={() => abrirModalEditar(item.id, item.lista_dados, item.nome_exame, item.observacao, item.data_exame)} className='button-opcoes-lista-exames-usuario'>
-                                                <ModeEditIcon sx={{ color: 'green' }} />
+                                                <ModeEditIcon sx={{ width: '30%', height: "40%", color: 'green' }} />
                                             </button>
                                             <button onClick={() => abrirModalDeletar(item.id)} className='button-opcoes-lista-exames-usuario'>
-                                                <DeleteForeverIcon sx={{ color: 'red' }} />
+                                                <DeleteForeverIcon sx={{ width: '30%', height: "40%", color: 'red' }} />
                                             </button>
                                         </li>
                                     </ul>

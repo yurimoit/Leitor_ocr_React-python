@@ -263,7 +263,19 @@
 
 }
 
-.lista-page-3 button {
+.lista-page-3-buttons {
+    width: calc(100% - 120px);
+    height: 15%;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-right: 120px;
+
+
+}
+
+.lista-page-3-buttons button {
     width: 120px;
     height: 45px;
 
@@ -271,6 +283,68 @@
     border-right: none;
 
 }
+
+.button-referencia-grafico {
+    width: 120px;
+    height: 45px;
+
+    display: flex;
+    left: 1%;
+
+    border: 1px solid lightgray;
+    border: none;
+}
+
+.button-bar-line {
+    width: 120px;
+    height: 45px;
+
+    border: 1px solid lightgray;
+
+    font-size: 1.6rem;
+    font-family: Nunito, sans-serif;
+    font-weight: 600;
+}
+
+.texto-grafico-eritograma {
+    width: 100%;
+    min-height: 60vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+    overflow-y: scroll;
+    gap: 50px;
+
+
+    padding: 10px 0px;
+}
+
+.texto-grafico-eritograma::-webkit-scrollbar {
+    display: none;
+}
+
+.grafico-eritograma {
+    width: 80%;
+    height: 65%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: scroll;
+    gap: 50px;
+
+
+    padding: 10px 0px;
+
+}
+
+.grafico-eritograma::-webkit-scrollbar {
+    display: none;
+}
+
+
 
 .page-3-grafico {
     width: 100%;
