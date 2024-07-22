@@ -1,0 +1,188 @@
+
+.container-modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+  }
+  
+  .modal-overlay {
+    background: #3d3d3d7a 48%;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .modal-content-relatorio {
+    width: 480px;
+    height: 420px;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+
+
+  
+  }
+
+  .container-modal-main-relatorio {
+    width: 100%;
+    height: 100%;
+  
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
+  
+    padding: 25px 20px;
+  
+    background: linear-gradient(to right, rgb(8, 11, 14), rgb(25, 38, 52));
+    border-radius: 8px;
+
+  }
+  
+  .head-download-relatorio{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+
+  }
+
+  .head-download-relatorio h1{
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 2.8rem;
+    font-weight: 600;
+    font-family: Rubix, sans-serif;
+    color:white;
+    text-transform: uppercase;
+  }
+
+  .head-download-relatorio button{
+    border: none;
+    display: flex;
+    align-items: flex-start;
+    background-color: none;
+    background:none
+  }
+
+  .section-relatorio{
+    width: 100%;
+    height: 75%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background-color: white;
+    border-radius: 5px;
+  }
+
+  .buttons-download-relatorio{
+    width: 100%;
+    height: 3rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .buttons-download-relatorio button{
+    width: 180px;
+    height: 95%;
+
+    font-size: 1.6rem;
+    font-family: Nunito, sans-serif;
+
+    border: none;
+    transform: 0.2s;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px black;
+  }
+
+  .buttons-download-relatorio button:hover{
+    transform: scale(1.05);
+  }
+
+  .button-cancelar{
+    color:red;
+    background-color: white;
+  }
+  .button-cancelar:hover{
+    color:white;
+    background-color: red;
+  }
+
+  .button-confirmar{
+    color: blue;
+    background-color: white;
+  }
+
+  .button-confirmar:hover{
+    color: white;
+    background-color:rgb(40, 213, 40);
+  }
+
+  .h2-mensagem-relatorio{
+
+    font-size: 2.6rem;
+    font-weight: 800;
+    font-family: Nunito, sans-serif;
+    color: rgb(5, 5, 79);
+  }
+
+
+  .a-link-relatorio{
+    width: 180px;
+    height: 95%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px black;
+
+    font-size: 1.6rem;
+    font-family: Nunito, sans-serif;
+    cursor: pointer;
+    text-decoration: none;
+    transform: 0.2s;
+
+    color: blue;
+    background-color: white;
+  }
+
+  .a-link-relatorio:hover{
+    transform: scale(1.04);
+    color: white;
+    background-color:rgb(40, 213, 40);
+  }
+
+  .aside-finalizar-relatorio{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .finalizar{
+    font-size: 2rem;
+  }

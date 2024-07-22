@@ -283,8 +283,26 @@ export default function ListaExames({ idPaciente }) {
 
             {finalizarEditarExame && (
                 <div className="alert-CB">
-                    <Stack sx={{ width: '21%', boxShadow: `0px 4px 42px 0px #00000033 `, borderRadius: "10px" }} spacing={2}>
-                        <Alert variant="filled" severity={finalizarEditarExame}>
+                    <Stack  spacing={2}
+                     sx={{
+                        width: '21%',
+                        boxShadow: `3px 3px 5px black `,
+                        borderRadius: "10px",
+                        border: "none",
+                        opacity:'0.95'
+                    }}
+                    >
+                        <Alert variant="filled" severity={finalizarEditarExame}
+                         sx={{
+                            width: "100%",
+                            height: "100%",
+                            fontSize: "1.8rem",
+                            fontFamily: "Nunito sans-serif",
+                            display: "flex",
+                            alignItems: "center",
+                            border: "none"
+                        }}
+                        >
                             {finalizarEditarExame === 'success' ? 'Atualização concluida com sucesso!' : "Erro na atualização!"}
                         </Alert>
                     </Stack>
@@ -293,8 +311,26 @@ export default function ListaExames({ idPaciente }) {
 
             {finalizarDeletarExame && (
                 <div className="alert-CB">
-                    <Stack sx={{ width: '21%', boxShadow: `0px 4px 42px 0px #00000033 `, borderRadius: "10px" }} spacing={2}>
-                        <Alert variant="filled" severity={finalizarDeletarExame}>
+                    <Stack spacing={2} 
+                     sx={{
+                        width: '21%',
+                        boxShadow: `3px 3px 5px black `,
+                        borderRadius: "10px",
+                        border: "none",
+                        opacity:'0.95'
+                    }}
+                    >
+                        <Alert variant="filled" severity={finalizarDeletarExame} 
+                        sx={{
+                            width: "100%",
+                            height: "100%",
+                            fontSize: "1.8rem",
+                            fontFamily: "Nunito sans-serif",
+                            display: "flex",
+                            alignItems: "center",
+                            border: "none"
+                        }}
+                        >
                             {finalizarDeletarExame === 'success' ? 'Excluiu com sucesso!' : "Erro na exclusão!"}
                         </Alert>
                     </Stack>

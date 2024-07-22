@@ -4,7 +4,8 @@ import TextSnippetIcon from '@mui/icons-material/TextSnippet';
 import LeaderboardIcon from '@mui/icons-material/Leaderboard';
 import PolylineIcon from '@mui/icons-material/Polyline';
 import { useNavigate } from 'react-router-dom';
-import DownloadButton from '../DownloadButton';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+import { useState } from 'react';
 
 
 export default function SideBar({
@@ -17,9 +18,12 @@ export default function SideBar({
     setIsPageExames,
     isPageDashBoard,
     setIsPageDashBoard,
+    modalIsOpenRelatorio,
+    setModalIsOpenRelatorio,
 }) {
 
     const navigate = useNavigate()
+    const[isRelatorio, setIsRelatorio]=useState(false)
 
     function selectButton(n) {
         if (n === 1) {
@@ -29,12 +33,16 @@ export default function SideBar({
             setIsPageHome(true)
             setIsPageExames(false)
             setIsPageDashBoard(false)
+            setIsRelatorio(false)
+            setModalIsOpenRelatorio(false)
         }
         if (n === 2) {
             setIsPage(true)
             setIsPageHome(false)
             setIsPageExames(false)
             setIsPageDashBoard(false)
+            setIsRelatorio(false)
+            setModalIsOpenRelatorio(false)
             navigate('/home/cadastro')
             if (localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) {
                 navigate('/home/cadastro')
@@ -47,6 +55,8 @@ export default function SideBar({
             setIsPageHome(false)
             setIsPageExames(true)
             setIsPageDashBoard(false)
+            setIsRelatorio(false)
+            setModalIsOpenRelatorio(false)
             if (localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) {
                 navigate('/home/listaExame')
             } else {
@@ -58,10 +68,26 @@ export default function SideBar({
             setIsPageHome(false)
             setIsPageExames(false)
             setIsPageDashBoard(true)
+            setIsRelatorio(false)
+            setModalIsOpenRelatorio(false)
             if (localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) {
                 navigate('/home/Dasboard')
             } else {
                 navigate('/home/usuario/Dasboard')
+            }
+        }
+        if (n === 5) {
+            setIsPage(false)
+            setIsPageHome(false)
+            setIsPageExames(false)
+            setIsPageDashBoard(false)
+            setModalIsOpenRelatorio(!modalIsOpenRelatorio)
+            setIsRelatorio(true)
+            setIsPage(true)
+            if (localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27')) {
+                navigate('/home/cadastro')
+            } else {
+                navigate('/home/usuario')
             }
         }
     }
@@ -87,10 +113,9 @@ export default function SideBar({
                     <LeaderboardIcon sx={{ color: `${isPageDashBoard ? "#052747" : "#fff"}`, width: '80%', height: '40px' }} />
                     <h1 style={{ color: `${isPageDashBoard ? "#052747" : "#fff"}` }}>DashBoard</h1>
                 </button>
-                <button onClick={() => selectButton(4)} style={{ backgroundColor: `${isPageDashBoard ? "#fff" : "#000"}` }} className='sidebar-button'>
-                    <LeaderboardIcon sx={{ color: `${isPageDashBoard ? "#052747" : "#fff"}`, width: '80%', height: '40px' }} />
-                    <DownloadButton />
-                    <h1 style={{ color: `${isPageDashBoard ? "#052747" : "#fff"}` }}>Relatório</h1>
+                <button onClick={() => selectButton(5)} style={{ backgroundColor: `${isRelatorio ? "#fff" : "#000"}` }} className='sidebar-button'>
+                    <AssessmentIcon  sx={{ color: `${isRelatorio? "#052747" : "#fff"}`, width: '80%', height: '40px' }} />
+                    <h1 style={{ color: `${isRelatorio ? "#052747" : "#fff"}` }}>Relatório</h1>
                 </button>
             </div>
         </nav>

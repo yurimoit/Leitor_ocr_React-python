@@ -21,6 +21,7 @@ import Alert from '@mui/material/Alert';
 import Stack from '@mui/material/Stack';
 import ModalDeletarPaciente from '../components/ModalDeletarPaciente';
 import toast from 'react-hot-toast';
+import DownloadButton from '../components/DownloadButton';
 
 
 export default function AppHome({ verificacao, listaExame, Dasboard }) {
@@ -28,6 +29,7 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
     const [modalIsOpen, setIsOpen] = useState(false);
     const [openModalCDPT, setOpenModalCDPT] = useState(false);
     const [openModalEditarPT, setOpenModalEditarPT] = useState(false);
+    const [modalIsOpenRelatorio, setModalIsOpenRelatorio] = useState(false);
     const [isPage, setIsPage] = useState(true)
     const [isPageHome, setIsPageHome] = useState(false)
     const [isPageExames, setIsPageExames] = useState(false)
@@ -219,6 +221,12 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
                 usuario={usuario}
             />
 
+            <DownloadButton 
+                modalIsOpenRelatorio={modalIsOpenRelatorio}
+                setModalIsOpenRelatorio={setModalIsOpenRelatorio}
+                idPaciente={idPaciente}
+            />
+
             <ModalCadastrarPaciente
                 openModalCDPT={openModalCDPT}
                 setOpenModalCDPT={setOpenModalCDPT}
@@ -252,6 +260,8 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
                         setIsPageExames={setIsPageExames}
                         isPageDashBoard={isPageDashBoard}
                         setIsPageDashBoard={setIsPageDashBoard}
+                        modalIsOpenRelatorio={modalIsOpenRelatorio}
+                        setModalIsOpenRelatorio={setModalIsOpenRelatorio}
                     />
                     {isPageExames && (<ListaExames
                         idPaciente={idPaciente}
@@ -350,10 +360,11 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
                     {finalizarCDPaciente && (
                         <div className="alert-CB">
                             <Stack sx={{
-                                width: '21%',
-                                boxShadow: `1px 1px 5px black `,
-                                borderRadius: "10px",
-                                border: "none"
+                               width: '21%',
+                               boxShadow: `3px 3px 5px black `,
+                               borderRadius: "10px",
+                               border: "none",
+                               opacity:'0.95'
                             }} spacing={2}>
                                 <Alert variant="filled" severity={finalizarCDPaciente} sx={{
                                     width: "100%",
@@ -374,9 +385,10 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
                         <div className="alert-CB">
                             <Stack sx={{
                                 width: '21%',
-                                boxShadow: `1px 1px 5px black `,
+                                boxShadow: `3px 3px 5px black `,
                                 borderRadius: "10px",
-                                border: "none"
+                                border: "none",
+                                opacity:'0.95'
                             }} spacing={2}>
                                 <Alert variant="filled" severity={finalizarEditarPaciente} sx={{
                                     width: "100%",
@@ -397,9 +409,10 @@ export default function AppHome({ verificacao, listaExame, Dasboard }) {
                         <div className="alert-CB">
                             <Stack sx={{
                                 width: '21%',
-                                boxShadow: `1px 1px 5px black `,
+                                boxShadow: `3px 3px 5px black `,
                                 borderRadius: "10px",
-                                border: "none"
+                                border: "none",
+                                opacity:'0.95'
                             }} spacing={2}>
                                 <Alert variant="filled" severity={finalizarExcluirPaciente} sx={{
                                     width: "100%",

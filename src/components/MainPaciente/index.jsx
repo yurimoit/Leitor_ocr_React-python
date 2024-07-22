@@ -702,9 +702,10 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                 <div className="alert-CB">
                     <Stack sx={{
                         width: '21%',
-                        boxShadow: `1px 1px 5px black `,
+                        boxShadow: `3px 3px 5px black `,
                         borderRadius: "10px",
                         border: "none",
+                        opacity:'0.95'
                     }} spacing={2}>
                         <Alert variant="filled" severity={finalizarEditarPaciente} sx={{
                             width: "100%",
@@ -724,9 +725,10 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                 <div className="alert-CB">
                     <Stack sx={{
                         width: '21%',
-                        boxShadow: `1px 1px 5px black `,
+                        boxShadow: `3px 3px 5px black `,
                         borderRadius: "10px",
                         border: "none",
+                        opacity:'0.95'
                     }} spacing={2}>
                         <Alert variant="filled" severity={finalizarCadastroExame} sx={{
                             width: "100%",

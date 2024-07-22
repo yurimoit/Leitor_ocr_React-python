@@ -88,7 +88,7 @@ function ChartComponentValues({ dataDados, line, name, optionsValuesCHCM }) {
                 label: "Média",
                 data: [0, dadosLimitados[1], 0],
                 fill: true,
-                backgroundColor: `${true ? 'rgba(227, 31, 31, 0.6)' : 'rgba(70, 35, 199,0.7)'} `,
+                backgroundColor: `${true ? 'rgba(29, 198, 29, 0.6)' : 'rgba(70, 35, 199,0.7)'} `,
                 borderColor: 'rgba(0, 1, 0,0.5)',
                 borderWidth: 2,
 
@@ -97,7 +97,7 @@ function ChartComponentValues({ dataDados, line, name, optionsValuesCHCM }) {
                 label: "Menor",
                 data: [0, 0, dadosLimitados[2]],
                 fill: true,
-                backgroundColor: `${true ? 'rgba(29, 198, 29, 0.6)' : 'rgba(70, 35, 199,0.7)'} `,
+                backgroundColor: `${true ? 'rgba(227, 31, 31, 0.6)' : 'rgba(70, 35, 199,0.7)'} `,
                 borderColor: 'rgba(0, 1, 0,0.5)',
                 borderWidth: 2,
 
