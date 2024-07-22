@@ -448,8 +448,8 @@ export default function DashBoard({ isPageDashBoard }) {
     }
 
     useEffect(() => {
-        buscarExames()
         buscarRelatorio()
+        buscarExames()
         trocaListaEritograma('hemacias')
         trocaListaIndicesEritograma('rdw')
 
