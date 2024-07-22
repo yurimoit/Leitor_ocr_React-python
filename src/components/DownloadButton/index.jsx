@@ -35,7 +35,7 @@ export default function DownloadButton({modalIsOpenRelatorio, setModalIsOpenRela
           setVerificaRelatorioGerado(false)
           console.log("link",response.data);
           if(response.data && response.data.link){
-            const link=(response.data.link).replace("C:\\Users\\yurim\\AppData\\Local\\Temp\\","")
+            const link=(response.data.link).replace("\\Temp\\","")
             setLink(link)
           }
           toast.success("Efetuado com sucesso")
