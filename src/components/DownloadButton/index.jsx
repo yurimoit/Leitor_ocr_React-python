@@ -35,8 +35,8 @@ export default function DownloadButton({modalIsOpenRelatorio, setModalIsOpenRela
           setVerificaRelatorioGerado(false)
           console.log("link",response.data);
           if(response.data && response.data.link){
-            const link=(response.data.link).replace("C:\\Users\\yurim\\AppData\\Local\\Temp\\","").replace("\\Temp\\","").replace("\\temp\\","")
-            setLink(link)
+            // const link=(response.data.link).replace("C:\\Users\\yurim\\AppData\\Local\\Temp\\","").replace("\\Temp\\","").replace("\\temp\\","")
+            setLink(response.data.link)
           }
           toast.success("Efetuado com sucesso")
         },1500)
@@ -44,7 +44,7 @@ export default function DownloadButton({modalIsOpenRelatorio, setModalIsOpenRela
     } catch (error) {
       toast.error("Falhou")
       setVerificaRelatorioGerado(false)
-      setMensagemRelatrorio("Não foi possivél gera relatório no momento '/n' tente novamente")
+      setMensagemRelatrorio("Não foi possivél gera relatório no momento, tente novamente!!")
       console.error('Erro ao baixar o arquivo:', error);
     }
   }
