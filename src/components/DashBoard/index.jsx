@@ -9,11 +9,14 @@ import api from '../../services/api'
 import ButtonsGrafico from './componenteButtons';
 import ChartComponentValues from '../grafico/componenteGrafico';
 import toast from 'react-hot-toast';
+import ComponenteLPA from '../grafico/componenteLPA';
+import ComponenteLPAData from '../grafico/componenteLPAData';
 
 
 export default function DashBoard({ isPageDashBoard }) {
 
     const [listaResultadosDados, setListaResultadosDados] = useState({})
+    const [listaDadosParanalisador, setListaDadosParanalisador] = useState({})
     const [listaRelatorio, setListaRelatorio] = useState({})
     const [currentPage, setCurrentPage] = useState(1);
 
@@ -413,6 +416,39 @@ export default function DashBoard({ isPageDashBoard }) {
         }
     }
 
+    async function buscarDadosParanalisador() {
+        try {
+            if (!Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27'))) {
+                const response = await api.get(`/gerar/dados_paranalisador?id_paciente=${null}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                        }
+                    }
+                )
+
+                if (response && response.data) {
+                    console.log(response.data);
+                    setListaDadosParanalisador(response.data)
+                }
+            } else if (localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')) {
+                const response = await api.get(`/gerar/dados_paranalisador?id_paciente=${localStorage.getItem('SMoYgVd$Q6Qf2#g@fG5XTgH')}`,
+                    {
+                        headers: {
+                            Authorization: `Bearer ${localStorage.getItem('E%H6%2&6GB8UU!UZ3XncHd')}`
+                        }
+                    }
+                )
+
+                if (response && response.data) {
+                    setListaDadosParanalisador(response.data)
+                }
+            }
+        } catch (error) {
+            toast.error("Error no servido 500")
+        }
+    }
+
     async function buscarRelatorio() {
         try {
             if (!Boolean(localStorage.getItem('BcD#p%swmmE6e%dR9UJK^kqBi@JMtf27'))) {
@@ -448,17 +484,21 @@ export default function DashBoard({ isPageDashBoard }) {
     }
 
     useEffect(() => {
-        buscarRelatorio()
         buscarExames()
+        buscarRelatorio()
         trocaListaEritograma('hemacias')
         trocaListaIndicesEritograma('rdw')
+        
+        if (currentPage===4){
+            buscarDadosParanalisador()
+        }
 
     },
         // eslint-disable-next-line 
-        [isPageDashBoard])
+        [isPageDashBoard, currentPage])
 
 
-
+        console.log("DADOS PR: ", listaDadosParanalisador);
 
     return (
         <div className='grafico-dashboard'>
@@ -467,10 +507,11 @@ export default function DashBoard({ isPageDashBoard }) {
                     {currentPage === 1 && (<h1>Eritrograma</h1>)}
                     {currentPage === 2 && (<h1>Eritrograma indices</h1>)}
                     {currentPage === 3 && (<h1>Leucograma</h1>)}
+                    {currentPage === 4 && (<h1>LPA-MPD</h1>)}
                 </div>
                 <Stack className='stack' spacing={2} >
                     <Pagination
-                        count={3}
+                        count={4}
                         variant="outlined"
                         shape="rounded"
                         className="pagination"
@@ -645,6 +686,36 @@ export default function DashBoard({ isPageDashBoard }) {
                         </div>
                     </div>
                 )}
+                {currentPage === 4 && (listaResultadosDados) && (
+                    <div className='graficos-page-3'>
+                        <div className='page-3-grafico'>
+                            <section className='grafico-eritograma'>
+                                <ComponenteLPA
+                                  dadosParanalisador={listaDadosParanalisador}
+                                /> 
+                                <ComponenteLPAData 
+                                  dadosParanalisador={listaDadosParanalisador}
+                                 line={true}
+                                />
+                            </section>
+                            <article className='texto-leucograma'>
+                            <br></br>
+                                <h2>{'Lógica paraconsistente anotada - MPD'}</h2>
+                                <br></br>
+                                <p style={{fontSize:"1.4rem"}}>
+                                    
+                                         V = 0.6 {"<="}H {"<="} 1 {"---->"} VERDADEIRO <br/>
+                                         IN = 0.6 {"<="}G {"<="} 1 {"---->"} INCONSISTENTE <br/>
+                                         PR = -1 {"<="}G {"<="}-0.6 {"---->"} PARACOMPLETO  <br/>
+                                         F = -1 {"<="}H {"<="} -0.6 {"---->"} FALSO
+                                       
+                                </p>
+                                <br></br>
+                            </article>
+                        </div>   
+                    </div> 
+                )
+                }        
 
             </div>
         </div>

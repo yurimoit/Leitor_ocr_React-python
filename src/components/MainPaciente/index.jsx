@@ -582,7 +582,7 @@ export default function MainPaciente({ setUsuario, modalIsOpen }) {
                                 className='btn-purple'
                                 onClick={() => handleUploadFormData()}
                             >
-                                Upload photo
+                                Upload file
                             </button>
                         </div>
 
